@@ -9,7 +9,18 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    max-width: calc(100vw - 600px);
+    max-width: calc(100vw - 525px);
+
+  }
+
+  .call-to-action-content {
+    flex: 1; /* Allow the content to grow and take up remaining space */
+  }
+  
+  .call-to-action img {
+    position: absolute; /* Position the image absolutely */
+    top: 170px; /* Move the image up by adjusting the top value */
+    right: 180px; /* Move the image to the right by adjusting the right value */
   }
   
   .call-to-action h1 {
@@ -18,17 +29,18 @@
     word-wrap: break-word;
     max-width: 475px;
     margin-top: 0px;
+    margin-left: 15px;
   }
   
   .call-to-action h4 {
     color: #858688;
     margin-bottom: 0px;
-    margin-left: 5px;
+    margin-left: 20px;
   }
   
   .learn-more-button {
     padding: 8px 15px;
-    margin-left: 4px;
+    margin-left: 17px;
     margin-right: 50px;
     font-size: 24px;
     width: 350px;
@@ -41,7 +53,7 @@
   }
   
   .learn-more-button:hover {
-    background-color: #0056b3;
+    background-color: #004b38;
   }
   
   .resources-section {
@@ -117,5 +129,5 @@
   }
   
   .section-button:hover {
-    background-color: #0056b3;
+    background-color: #004b38;
   }

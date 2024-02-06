@@ -1,0 +1,70 @@
+/* About.css */
+.outer-container {
+    background: linear-gradient(to left, #ffffff 20%, #ebeff2 20%);
+    margin-top: -53px; /* Height of the header to align with its bottom */
+  }
+  
+  .about-container {
+    text-align: center;
+    position: relative;
+    min-height: calc(100vh - 150px); /* Adjust the value to accommodate the footer height */
+    margin: 0px 75px;
+    padding-bottom: 150px; /* Same as the height of the footer */
+    }
+  
+  .about-header {
+    font-size: 64px;
+    margin-bottom: 20px;
+  }
+  
+  .about-paragraph {
+    text-align: left;
+    font-size: 18px;
+    line-height: 1.6;
+  }
+  
+  .columns {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .column {
+    flex-basis: 45%;
+    text-align: left;
+  }
+  
+  .column h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .additional-content {
+    margin-top: 40px; /* Adjust spacing as needed */
+  }
+  
+  .additional-content h2 {
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+  
+  .additional-content p {
+    font-size: 18px;
+    line-height: 1.6;
+    text-align: left;
+  }
+  
+  .big-button {
+    font-size: 20px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #5a8375; /* Change the background color */
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .big-button:hover {
+    background-color: #004b38; /* Change the hover background color if needed */
+  }
+  

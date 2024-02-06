@@ -3,7 +3,6 @@
 .footer {
     background-color: #5a8375;
     color: #fff;
-    padding: 20px;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -13,6 +12,7 @@
 .company-info {
     width: 40%;
     text-align: left;
+    padding-left: 20px;
 }
   
 .links-and-contact {

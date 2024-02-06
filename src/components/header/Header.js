@@ -7,7 +7,7 @@ import { IoMdSearch } from 'react-icons/io';
 export const Header = () => {
   return (
     <div className="header-container">
-      <h3>Community Impact Hubs</h3>
+      <h3>Community Impact Hub</h3>
       <nav>
         <ul className="header-tabs">
           <li><Link to="/">Home</Link></li>

@@ -1,9 +1,8 @@
 // Home.js
 
 import React from 'react';
-import { Header } from '../../components/header/Header';
 import './Home.css';
-import Footer from '../../components/footer/Footer';
+import Image from "../../images/HeroImage.png"
 
 const Home = () => {
   return (
@@ -14,6 +13,7 @@ const Home = () => {
         <h4>we believe in . . .</h4>
         <h1>Making a difference through collective action</h1>
         <button className="learn-more-button">Learn more about us here</button>
+        <img src={Image} alt="Home Page Tree Image"/>
       </div>
 
       {/* Resources Section */}
