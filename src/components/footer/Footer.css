@@ -1,0 +1,55 @@
+/* Footer.css */
+
+.footer {
+    background-color: #5a8375;
+    color: #fff;
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+.company-info {
+    width: 40%;
+    text-align: left;
+}
+  
+.links-and-contact {
+    width: 100%;
+    display: flex;
+    justify-content: space-around; /* Adjusted to ensure space between columns */
+}
+
+.links-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.links-column h6 {
+    margin-bottom: 10px;
+}
+
+.links-column li {
+    list-style-type: none; /* Add this line to remove bullets */
+}
+
+.links-column p {
+    display: flex;
+    align-items: center;
+}
+
+.links-column p svg {
+    margin-right: 5px; /* Adjust the margin as needed */
+}
+
+.links-column li,
+.links-column p,
+.links-column h5 {
+    text-align: left;
+}
+  
+.copyright {
+    text-align: center;
+    margin-top: 20px;
+}
