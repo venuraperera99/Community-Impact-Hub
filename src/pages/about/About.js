@@ -20,13 +20,13 @@ const About = () => {
         </p>
         <div className="columns">
           <div className="column">
-            <h3>Mission</h3>
+            <h2>Mission</h2>
             <p>Our mission is to catalyze positive change in Ontario and Canada-wide, by addressing pressing social and environmental 
               issues through innovative and sustainable initiatives. We are dedicated to empowering communities, fostering inclusivity, 
               and contributing to the overall well-being of society. Through collaborative efforts and a commitment to transparency, 
               we aim to create tangible and lasting impact, inspiring individuals to actively engage in building a better, 
               more equitable future.</p>
-            <h3>Diversity, Equity and Inclusion</h3>
+            <h2>Diversity, Equity and Inclusion</h2>
             <p> Our commitment to Diversity, Equity, and Inclusion (DEI) is woven into the fabric of our organization. 
               We recognize that embracing diversity in all its forms is not only a strength bt a fundamental necessity for 
               creating a truly equitable and just society. We are dedicated to fostering an inclusive environment where 
@@ -38,14 +38,14 @@ const About = () => {
               more equitable and marmonious community for everyone.</p>
           </div>
           <div className="column">
-            <h3>Vision</h3>
+            <h2>Vision</h2>
             <p>Our vision is a thriving entrepreneurial community in Ontario and Canada where every individual has the opportunity 
               to reach their full potential and where communities are resilient, inclusive and environmentally sustainable. 
               We aspire to be a catalyst for transformative change, leveraging the power of collective action to create a society 
               that values diversity, promotes social justice, and embraces envionmental stewardship. By fostering collaboration and 
               implemnting forward-thinking solutions, we envision a future where our efforts serve as a model for positive change, 
               inspiring others to join us in creating a more compassionate and sustainable world.</p>
-            <h3>Our Values</h3>
+            <h2>Our Values</h2>
             <p>At the core of our organization lie a set of guiding values that shape our identity and steer our actions. 
               Integrity is the corner stone of all our endeavors, as we upgold the highest ethical standards in every interaction 
               and decision. We are committed to fostering inclusivity, recognizing the strength that diversity brings to our 

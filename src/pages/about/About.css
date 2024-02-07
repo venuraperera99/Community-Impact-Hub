@@ -33,7 +33,7 @@
     text-align: left;
   }
   
-  .column h3 {
+  .column h2 {
     font-size: 24px;
     margin-bottom: 10px;
     text-align: center;
@@ -45,7 +45,6 @@
   
   .additional-content h2 {
     font-size: 36px;
-    margin-bottom: 10px;
   }
   
   .additional-content p {
@@ -55,13 +54,15 @@
   }
   
   .big-button {
-    font-size: 20px;
-    padding: 10px 20px;
+    padding: 20px 50px; /* Adjust padding as needed */
+    font-size: 48px; /* Adjust font size as needed */
+    background-color: #5a8375;
+    color: #fff;
     border: none;
-    background-color: #5a8375; /* Change the background color */
-    color: white;
     cursor: pointer;
     transition: background-color 0.3s;
+    border-radius: 5px; /* Round the button edges */
+    width: 300px; /* Set a fixed width for the buttons */
   }
   
   .big-button:hover {

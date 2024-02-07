@@ -1,0 +1,6 @@
+.outer-container {
+    background: linear-gradient(to left, #ffffff 20%, #ebeff2 20%);
+    margin-top: -53px; /* Height of the header to align with its bottom */
+  }
+  
+  
