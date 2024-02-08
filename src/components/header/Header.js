@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import './Header.css';
 import { FaUser } from 'react-icons/fa';
 import { IoMdSearch } from 'react-icons/io';
+import Image from "../../images/Logo.png";
 
 export const Header = () => {
   return (
     <div className="header-container">
-      <h3>Community Impact Hub</h3>
+      <img src={Image} alt="Community Impact Hub" style={{ width: '15%', height: 'auto' }}/>
       <nav>
         <ul className="header-tabs">
           <li><Link to="/">Home</Link></li>
