@@ -15,10 +15,10 @@ const Footer = () => {
           <p>We are dedicated to empowering communities, fostering inclusivity, and contributing to the overall well-being of society. 
             Through collaborative efforts and a commitment to transparency we aim to create tangible and lasting impact, inspiring 
             individuals to actively engage in building a better, more equitable future.</p>
-          <div className='socials-icons'>
-            <FaFacebook />
-            <FaTwitter />
-            <RiInstagramFill />
+            <div className='socials-icons'>
+            <FaFacebook size={28} color={'black'} style={{ marginRight: '45px' }} />
+            <FaTwitter size={28} color={'black'} style={{ marginRight: '45px' }} />
+            <RiInstagramFill size={28} color={'black'} style={{ marginRight: '20px' }} />
           </div>
         </div>
   
