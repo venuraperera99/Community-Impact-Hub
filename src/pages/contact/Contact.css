@@ -1,6 +1,66 @@
-.outer-container {
-    background: linear-gradient(to left, #ffffff 20%, #ebeff2 20%);
-    margin-top: -53px; /* Height of the header to align with its bottom */
-  }
-  
-  
+/* Contact.css */
+
+.outer {
+  background: linear-gradient(to left, #ebeff2 20%, #ffffff 20%);  
+  display: flex;
+  justify-content: center; /* Center the content horizontally */
+  align-items: center; /* Center the content vertically */
+  height: 100vh; /* Adjust the height as needed */
+}
+
+.form-container {
+  background-color: #ebeff2; /* Set background color for the form container */
+  padding: 40px; /* Add padding for better spacing */
+  border: 2px solid #5a8375; /* Add outline with specified color */
+  border-radius: 10px; /* Add border radius for rounded corners */
+  width: 900px; /* Set width of the form container */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+}
+
+/* Style for input fields */
+.input-field {
+  width: 90%;
+  height: 40px;
+  margin-bottom: 20px; /* Add margin between input fields */
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #5a8375; /* Add border color */
+  border-radius: 5px; /* Add border radius for rounded corners */
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+/* Style for message textarea */
+.message-field {
+  width: 90%;
+  height: 200px;
+  margin-bottom: 20px; /* Add margin between input fields and textarea */
+  padding: 10px;
+  font-size: 16px;
+  resize: none; /* Prevent resizing of the textarea */
+  border: 1px solid #5a8375; /* Add border color */
+  border-radius: 5px; /* Add border radius for rounded corners */
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+/* Style for send button */
+.send-button {
+  width: 90%;
+  height: 50px;
+  background-color: #5a8375;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Add transition for hover effect */
+}
+
+.send-button:hover {
+  background-color: #004b38;
+}
+
+/* Style for h1 */
+.form-container h1 {
+  font-size: 72px; /* Double the font size */
+  color: #5a8375; /* Set text color for h1 */
+}
