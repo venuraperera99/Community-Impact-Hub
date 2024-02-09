@@ -9,6 +9,7 @@ import { RiInstagramFill } from "react-icons/ri";
 const Footer = () => {
     return (
       <div className="footer">
+
         {/* Left Section - Company Info */}
         <div className="company-info">
           <h1>Community Impact Hub</h1>
@@ -20,11 +21,12 @@ const Footer = () => {
             <FaTwitter size={28} color={'black'} style={{ marginRight: '45px' }} />
             <RiInstagramFill size={28} color={'black'} style={{ marginRight: '20px' }} />
           </div>
+          <p>&copy; 2024 communityimpacthub.ca</p>
         </div>
   
         {/* Right Section - Links and Contact */}
         <div className="links-and-contact">
-          {/* Column 1 */}
+
           <div className="links-column">
             <h5>Navigation</h5>
               <li><a href="#">Home</a></li>
@@ -60,7 +62,7 @@ const Footer = () => {
               <li><a href="#">News</a></li>
               <li><a href="#">Events</a></li>
           </div>
-          {/* Column 2 */}
+
           <div className="links-column">
             <h5>Contact</h5>
             <li><a href="#">Contact Form</a></li>
@@ -69,9 +71,7 @@ const Footer = () => {
           </div>
   
         </div>
-  
-        {/* Bottom Section - Copyright */}
-        
+          
       </div>
     );
   }

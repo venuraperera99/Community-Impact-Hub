@@ -3,22 +3,26 @@
 .footer {
     background-color: #5a8375;
     color: #fff;
-    width: 100%;
+    width: 97%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start; /* Align items at the top */
+    flex-wrap: wrap; /* Allow items to wrap */
+    padding: 20px; /* Add padding to the footer */
 }
   
 .company-info {
     width: 40%;
     text-align: left;
-    padding-left: 20px;
 }
   
 .links-and-contact {
-    width: 100%;
+    width: 50%;
     display: flex;
-    justify-content: space-around; /* Adjusted to ensure space between columns */
+    /*justify-content: space-around; /*Adjusted to ensure space between columns */
+    justify-content:  space-between;
+    align-items: flex-start;
+    margin-right: 60px;
 }
 
 .links-column {
@@ -37,10 +41,17 @@
 .links-column p {
     display: flex;
     align-items: center;
+    font-weight: lighter;
 }
 
 .links-column p svg {
     margin-right: 5px; /* Adjust the margin as needed */
+}
+
+.links-column li a {
+    text-decoration: none; /* Remove underline from all links */
+    color: white;
+    font-weight: lighter;
 }
 
 .links-column li,
