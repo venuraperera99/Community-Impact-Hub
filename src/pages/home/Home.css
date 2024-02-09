@@ -39,7 +39,7 @@
   }
   
   .learn-more-button {
-    padding: 8px 15px;
+    padding: 20px 50px;
     margin-left: 17px;
     margin-right: 50px;
     font-size: 24px;
@@ -109,18 +109,19 @@
   
   .section-button {
     padding: 20px 50px; /* Adjust padding as needed */
-    font-size: 48px; /* Adjust font size as needed */
+    font-size: 24px; /* Adjust font size as needed */
     background-color: #5a8375;
     color: #fff;
     border: none;
     cursor: pointer;
     transition: background-color 0.3s;
     border-radius: 5px; /* Round the button edges */
-    width: 400px; /* Set a fixed width for the buttons */
+    width: 275px; /* Set a fixed width for the buttons */
     display: flex; /* Enable flexbox */
     align-items: center; /* Center vertically */
     justify-content: center; /* Center horizontally */
     margin-right: 100px; /* Adjust the horizontal gap between buttons */
+    text-decoration: none;
   }
   
   
