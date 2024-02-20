@@ -17,6 +17,7 @@ export const Header = () => {
           <li><Link to="/programs">Programs & Services</Link></li>
           <li><Link to="/register">Register</Link></li>
           <li><Link to="/contact">Contact Us</Link></li>
+          <li><Link to="/summercamp">Summer Camp Program</Link></li>
         </ul>
       </nav>
 
