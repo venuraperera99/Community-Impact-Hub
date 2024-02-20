@@ -1,8 +1,126 @@
-.outer {
-    background: linear-gradient(to left, #ebeff2 20%, #ffffff 20%);
+.summer-camp {
+    text-align: center;
+}
+
+.banner {
+    background-color: black;
+    color: white;
+    padding: 80px 20px;
+}
+
+.content {
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    height: 100vh;
+    max-width: 800px;
+    /* Adjust the width as needed */
+    margin: 0 auto;
+    /* Centers the content horizontally */
+}
+
+.session,
+.registration,
+.learning,
+.morning-learn,
+.bring,
+.register-section {
+    text-align: left;
+    /* Aligns text to the left */
+    margin-bottom: 20px;
+}
+
+.session,
+.bring {
+    max-width: 800px;
+    /* Set the same max-width as the registration div */
+    width: 100%;
+    /* Ensure the divs take up the available width */
+}
+
+
+.register-section {
+    margin-top: 20px;
+    margin-bottom: 60px;
+}
+
+.register-section h2 {
+    font-size: 1.5rem;
+    text-align: left;
+}
+
+.register-section button {
+    padding: 20px 20px;
+    font-size: 24px;
+    width: 800px;
+    background-color: red;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+    /* Round the button edges */
+}
+
+.register-section button:hover {
+    background-color: #a70101;
+}
+
+.register-button {
+    padding: 20px 20px;
+    font-size: 24px;
+    width: 600px;
+    background-color: red;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.register-button :hover{
+    background-color: #a70101;
+}
+
+.morning-learn-list {
+    text-align: left;
+}
+
+.morning-learn-list div {
+    margin-bottom: 10px;
+}
+
+.morning-learn-list div::before {
+    content: "• ";
+    color: black;
+    /* Customize bullet point color */
+}
+
+.bring-list {
+    text-align: left;
+}
+
+.bring-list div {
+    margin-bottom: 10px;
+}
+
+.bring-list div::before {
+    content: "• ";
+    color: black;
+    /* Customize bullet point color */
+}
+
+.session-list {
+    text-align: left;
+}
+
+.session-list div {
+    margin-bottom: 10px;
+}
+
+.session-list div::before {
+    content: "• ";
+    color: black;
+    /* Customize bullet point color */
 }
