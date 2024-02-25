@@ -12,11 +12,21 @@ import {
 } from '@mui/material';
 
 const validationSchema = Yup.object().shape({
-  firstName: Yup.string().required('First Name is required'),
-  lastName: Yup.string().required('Last Name is required'),
-  birthday: Yup.date().required('Birthday is required'),
-  phoneNumber: Yup.string().required('Phone Number is required'),
-  email: Yup.string().email('Invalid email').required('Email is required'),
+  firstName: Yup.string()
+    .matches(/^[a-zA-Z]*$/, 'First Name should only contain letters')
+    .required('First Name is required'),
+  lastName: Yup.string()
+    .matches(/^[a-zA-Z]*$/, 'Last Name should only contain letters')
+    .required('Last Name is required'),
+  birthday: Yup.date()
+    .max(new Date(), "Birthday should be before today's date")
+    .required('Birthday is required'),
+  phoneNumber: Yup.string()
+    .matches(/^[0-9]{3}-?[0-9]{3}-?[0-9]{4}$/, 'Phone Number should be in format 123-456-7890 or 1234567890')
+    .required('Phone Number is required'),
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Email is required'),
 });
 
 const Form = ({ onClose }) => {
