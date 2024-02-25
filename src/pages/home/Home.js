@@ -1,5 +1,3 @@
-// Home.js
-
 import React from 'react';
 import { Link } from 'react-router-dom'; // Import Link component
 import './Home.css';
@@ -13,7 +11,7 @@ const Home = () => {
       <div className="call-to-action">
         <h4>we believe in . . .</h4>
         <h1>Making a difference through collective action</h1>
-        <Link to="/contact"> {/* Link the button to the contact page */}
+        <Link to="/about"> {/* Link the button to the contact page */}
           <button className="learn-more-button">Learn More About Us</button>
         </Link>
         <img src={Image} alt="Home Page Tree Image"/>
