@@ -1,7 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './SummerCamp.css';
+import Form from '../../components/form/Form';
 
 const SummerCamp = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <div className='summer-camp'>
       <div className='banner'>
@@ -58,10 +69,10 @@ const SummerCamp = () => {
         </div>
         <div className='register-section'>
           <h2>Register Now</h2>
-          <button>Spring / Summer Registration</button>
+          <button onClick={openModal}>Spring / Summer Registration</button>
         </div>
       </div>
-      
+      {showModal && <Form onClose={closeModal} />}
     </div>
   );
 }

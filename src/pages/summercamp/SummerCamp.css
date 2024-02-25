@@ -79,7 +79,7 @@
     margin-bottom: 20px;
 }
 
-.register-button :hover{
+.register-button:hover{
     background-color: #a70101;
 }
 
