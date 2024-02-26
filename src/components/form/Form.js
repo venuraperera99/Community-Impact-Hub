@@ -121,7 +121,7 @@ const Form = ({ onClose }) => {
             className="form-field"
           />
           <DialogActions className="actions">
-            <Button type="submit" variant="contained" color="primary">
+            <Button style={{backgroundColor: "#5a8375"}} type="submit" variant="contained">
               Submit
             </Button>
           </DialogActions>
