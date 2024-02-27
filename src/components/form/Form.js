@@ -2,6 +2,8 @@ import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import './Form.css';
+import { IoMdArrowBack } from "react-icons/io";
+import { IoClose } from "react-icons/io5";
 import {
   TextField,
   Button,
@@ -51,8 +53,16 @@ const Form = ({ onClose, onBack }) => {
     onBack();
   };
 
+  const handleClose = () => {
+    onClose();
+  };
+
   return (
     <Dialog open={true} onClose={onClose}>
+      <div className='icon-container'>
+        <IoMdArrowBack className="icon" size={24} onClick={handleBackClick}/>
+        <IoClose className='icon close' size={24} onClick={handleClose}/>
+      </div>
       <DialogTitle style={{ marginBottom: '10px' }}>Register Form</DialogTitle>
       <DialogContent>
         <form onSubmit={formik.handleSubmit} className="form">
@@ -129,8 +139,8 @@ const Form = ({ onClose, onBack }) => {
             <Button style={{backgroundColor: "#5a8375"}} type="submit" variant="contained">
               Submit
             </Button>
-            <Button onClick={handleBackClick} color="primary">
-              Back
+            <Button onClick={handleClose} color="primary">
+              Cancel
             </Button>
           </DialogActions>
         </form>

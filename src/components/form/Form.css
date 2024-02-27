@@ -20,7 +20,7 @@
   }
   
   .close {
-    color: #aaa;
+    color: black;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -48,4 +48,21 @@
     display: flex;
     justify-content: center;
     margin-top: 20px;
+  }
+
+  .icon-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .icon-container .icon {
+    cursor: pointer; /* Add cursor pointer for the icons */
+  }
+  
+  .icon-container .icon:hover {
+    color: #5a8375; /* Change color on hover */
   }

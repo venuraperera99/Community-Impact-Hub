@@ -11,6 +11,7 @@ import {
   DialogActions,
   Typography,
 } from '@mui/material';
+import { IoClose } from "react-icons/io5";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -34,6 +35,10 @@ const SignInForm = ({ onClose, onSignUp }) => {
     },
   });
 
+  const handleClose = () => {
+    onClose();
+  };
+
   const handleSignUpClick = () => {
     onClose();
     onSignUp();
@@ -41,6 +46,9 @@ const SignInForm = ({ onClose, onSignUp }) => {
 
   return (
     <Dialog open={true} onClose={onClose}>
+      <div className='icon-container-sign-in'>
+        <IoClose size={24} className='icon close-sign-in' onClick={handleClose} />
+      </div>
       <DialogTitle style={{ marginBottom: '10px' }}>Sign In</DialogTitle>
       <DialogContent>
         <form onSubmit={formik.handleSubmit} className="form">

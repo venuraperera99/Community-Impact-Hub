@@ -3,7 +3,6 @@ import './SummerCamp.css';
 import Form from '../../components/form/Form';
 import SignInForm from '../../components/form/SignInForm'; // Import the SignInForm component
 
-
 const SummerCamp = () => {
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showSignInModal, setShowSignInModal] = useState(false);

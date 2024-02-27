@@ -26,3 +26,20 @@
 .sign-up-link:hover {
   color: darkred;
 }
+
+.icon-container-sign-in {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.icon-container-sign-in .icon {
+  cursor: pointer; /* Add cursor pointer for the icons */
+}
+
+.icon-container-sign-in .icon:hover {
+  color: #5a8375; /* Change color on hover */
+}
