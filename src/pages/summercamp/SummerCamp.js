@@ -1,11 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './SummerCamp.css';
 import Form from '../../components/form/Form';
 import SignInForm from '../../components/form/SignInForm'; // Import the SignInForm component
+import { useNavigate } from 'react-router-dom';
+
 
 const SummerCamp = () => {
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showSignInModal, setShowSignInModal] = useState(false);
+  const [user, setUser] = useState("hu");
+  const navigate = useNavigate();
+  /*
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        // User is signed in
+        setUser(user);
+      } else {
+        // No user is signed in
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+  */
 
   const openRegisterModal = () => {
     setShowRegisterModal(true);
@@ -23,6 +42,16 @@ const SummerCamp = () => {
     setShowSignInModal(false);
   };
 
+  const handleRegisterClick = () => {
+    if (user) {
+      // User is logged in, redirect to child registration page
+      navigate('/child-registration');
+    } else {
+      // User is not logged in, open sign in modal
+      openSignInModal();
+    }
+  };
+
   return (
     <div className='summer-camp'>
       <div className='banner'>
@@ -33,7 +62,7 @@ const SummerCamp = () => {
       <div className='content'>
         <h1>2024 Summer Camp Program Coding and Basketball</h1>
         <h2 style={{color: "red"}}>Registration for our summer program opens on Monday<br/> Jan 16th 2024</h2>
-        <button className='register-button' onClick={openSignInModal}>REGISTER HERE: Summer Camp Program</button>
+        <button className='register-button' onClick={handleRegisterClick}>REGISTER HERE: Summer Camp Program</button>
         <div className='session'>
           <h2>Dates & Times</h2>
           <div className='session-list'>
@@ -79,7 +108,7 @@ const SummerCamp = () => {
         </div>
         <div className='register-section'>
           <h2>Register Now</h2>
-          <button onClick={openSignInModal}>Spring / Summer Registration</button>
+          <button onClick={handleRegisterClick}>Spring / Summer Registration</button>
         </div>
       </div>
       {showRegisterModal && <Form onClose={closeRegisterModal} onBack={openSignInModal}/>}

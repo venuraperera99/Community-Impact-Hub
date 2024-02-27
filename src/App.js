@@ -8,7 +8,7 @@ import About from './pages/about/About';
 import Contact from './pages/contact/Contact';
 import ProgramAndServices from './pages/programandservices/ProgramAndServices';
 import SummerCamp from './pages/summercamp/SummerCamp';
-
+import ChildRegistration from './pages/childregistration/ChildRegistration'; // Import ChildRegistration
 
 function App() {
   return (
@@ -20,6 +20,7 @@ function App() {
         <Route path="/contact" element={<Contact/>}/>
         <Route path="/programs" element={<ProgramAndServices/>}/>
         <Route path="/summercamp" element={<SummerCamp/>}/>
+        <Route path="/child-registration" element={<ChildRegistration />} /> {/* Add ChildRegistration route */}
       </Routes>
       <Footer />
     </div>
