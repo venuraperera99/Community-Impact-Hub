@@ -1,16 +1,27 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './SummerCamp.css';
 import Form from '../../components/form/Form';
+import SignInForm from '../../components/form/SignInForm'; // Import the SignInForm component
+
 
 const SummerCamp = () => {
-  const [showModal, setShowModal] = useState(false);
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const [showSignInModal, setShowSignInModal] = useState(false);
 
-  const openModal = () => {
-    setShowModal(true);
+  const openRegisterModal = () => {
+    setShowRegisterModal(true);
   };
 
-  const closeModal = () => {
-    setShowModal(false);
+  const closeRegisterModal = () => {
+    setShowRegisterModal(false);
+  };
+
+  const openSignInModal = () => {
+    setShowSignInModal(true);
+  };
+
+  const closeSignInModal = () => {
+    setShowSignInModal(false);
   };
 
   return (
@@ -23,7 +34,7 @@ const SummerCamp = () => {
       <div className='content'>
         <h1>2024 Summer Camp Program Coding and Basketball</h1>
         <h2 style={{color: "red"}}>Registration for our summer program opens on Monday<br/> Jan 16th 2024</h2>
-        <button className='register-button'>REGISTER HERE: Summer Camp Program</button>
+        <button className='register-button' onClick={openSignInModal}>REGISTER HERE: Summer Camp Program</button>
         <div className='session'>
           <h2>Dates & Times</h2>
           <div className='session-list'>
@@ -69,10 +80,11 @@ const SummerCamp = () => {
         </div>
         <div className='register-section'>
           <h2>Register Now</h2>
-          <button onClick={openModal}>Spring / Summer Registration</button>
+          <button onClick={openSignInModal}>Spring / Summer Registration</button>
         </div>
       </div>
-      {showModal && <Form onClose={closeModal} />}
+      {showRegisterModal && <Form onClose={closeRegisterModal} onBack={openSignInModal}/>}
+      {showSignInModal && <SignInForm onClose={closeSignInModal} onSignUp={openRegisterModal}/>}
     </div>
   );
 }

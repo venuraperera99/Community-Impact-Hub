@@ -29,7 +29,7 @@ const validationSchema = Yup.object().shape({
     .required('Email is required'),
 });
 
-const Form = ({ onClose }) => {
+const Form = ({ onClose, onBack }) => {
   const formik = useFormik({
     initialValues: {
       firstName: '',
@@ -45,6 +45,11 @@ const Form = ({ onClose }) => {
       onClose(); // Close the modal after form submission
     },
   });
+
+  const handleBackClick = () => {
+    onClose();
+    onBack();
+  };
 
   return (
     <Dialog open={true} onClose={onClose}>
@@ -123,6 +128,9 @@ const Form = ({ onClose }) => {
           <DialogActions className="actions">
             <Button style={{backgroundColor: "#5a8375"}} type="submit" variant="contained">
               Submit
+            </Button>
+            <Button onClick={handleBackClick} color="primary">
+              Back
             </Button>
           </DialogActions>
         </form>

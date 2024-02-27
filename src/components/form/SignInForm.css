@@ -1,0 +1,28 @@
+/* SignInForm.css */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-field {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.sign-up-link {
+  color: red;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.sign-up-link:hover {
+  color: darkred;
+}
