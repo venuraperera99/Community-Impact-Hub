@@ -12,6 +12,7 @@ import {
   Typography,
 } from '@mui/material';
 import { IoClose } from "react-icons/io5";
+import { signIn } from '../../firebase/firebaseAuth'; // Import signIn function for user sign-in
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -28,10 +29,15 @@ const SignInForm = ({ onClose, onSignUp }) => {
       password: '',
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      // Handle sign-in form submission here
-      console.log('Sign In Form Submitted:', values);
-      onClose(); // Close the modal after form submission
+    onSubmit: async (values) => {
+      try {
+        console.log('Signing in with:', values.email, values.password);
+        await signIn(values.email, values.password);
+        console.log("SIGNED IN")
+        onClose(); 
+      } catch (error) {
+        console.error('Sign In Error:', error.message);
+      }
     },
   });
 

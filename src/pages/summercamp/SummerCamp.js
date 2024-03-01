@@ -3,14 +3,14 @@ import './SummerCamp.css';
 import Form from '../../components/form/Form';
 import SignInForm from '../../components/form/SignInForm'; // Import the SignInForm component
 import { useNavigate } from 'react-router-dom';
-
+import { auth } from '../../firebase/firebase';
 
 const SummerCamp = () => {
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showSignInModal, setShowSignInModal] = useState(false);
-  const [user, setUser] = useState("hu");
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
-  /*
+  
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -24,7 +24,7 @@ const SummerCamp = () => {
 
     return () => unsubscribe();
   }, []);
-  */
+  
 
   const openRegisterModal = () => {
     setShowRegisterModal(true);
@@ -43,7 +43,9 @@ const SummerCamp = () => {
   };
 
   const handleRegisterClick = () => {
-    if (user) {
+    const currentUser = auth.currentUser;
+    console.log(user)
+    if (currentUser) {
       // User is logged in, redirect to child registration page
       navigate('/child-registration');
     } else {

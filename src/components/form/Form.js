@@ -12,6 +12,7 @@ import {
   DialogContent,
   DialogActions,
 } from '@mui/material';
+import { signUp } from '../../firebase/firebaseAuth'; // Import signUp function for user registration
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -39,12 +40,21 @@ const Form = ({ onClose, onBack }) => {
       birthday: '',
       phoneNumber: '',
       email: '',
+      password: '',
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      // Here you can handle form submission, for now just log the data
-      console.log(values);
-      onClose(); // Close the modal after form submission
+    onSubmit: async (values) => {
+      try {
+        // Call signUp function with email and password
+        await signUp(values.email, values.password);
+        
+        // Redirect or close modal after successful registration
+        console.log("Registered Successfully: User: " + values.email + " Pass: " + values.password)
+        onClose();
+        onBack();
+      } catch (error) {
+        console.error('Registration Error:', error.message);
+      }
     },
   });
 
@@ -131,6 +141,20 @@ const Form = ({ onClose, onBack }) => {
             onChange={formik.handleChange}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
+            variant="outlined"
+            size="large"
+            className="form-field"
+          />
+          <TextField
+            fullWidth
+            id="password"
+            name="password"
+            label="Password"
+            type="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            error={formik.touched.password && Boolean(formik.errors.password)}
+            helperText={formik.touched.password && formik.errors.password}
             variant="outlined"
             size="large"
             className="form-field"

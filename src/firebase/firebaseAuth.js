@@ -1,8 +1,9 @@
 import { auth } from './firebase';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'; // Import specific auth functions
 
 export const signUp = async (email, password) => {
   try {
-    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     return userCredential.user;
   } catch (error) {
     throw error;
@@ -11,16 +12,16 @@ export const signUp = async (email, password) => {
 
 export const signIn = async (email, password) => {
   try {
-    const userCredential = await auth.signInWithEmailAndPassword(email, password);
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
     return userCredential.user;
   } catch (error) {
     throw error;
   }
 };
 
-export const signOut = async () => {
+export const signOutUser = async () => {
   try {
-    await auth.signOut();
+    await signOut(auth);
   } catch (error) {
     throw error;
   }

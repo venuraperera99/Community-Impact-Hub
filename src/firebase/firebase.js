@@ -1,15 +1,18 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyDcaBpwPbE9G8zsiKveSJbJqUYsGw0Ev9I",
+    authDomain: "community-impact-hub.firebaseapp.com",
+    projectId: "community-impact-hub",
+    storageBucket: "community-impact-hub.appspot.com",
+    messagingSenderId: "676327563740",
+    appId: "1:676327563740:web:802181c250e89c806bef19"
   };
 
-firebase.initializeApp(firebaseConfig);
-export const auth = firebase.auth();
-export default firebase;
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+// Get the auth object from the initialized app
+export const auth = getAuth(app);
+export default app;
