@@ -8,7 +8,8 @@ import About from './pages/about/About';
 import Contact from './pages/contact/Contact';
 import ProgramAndServices from './pages/programandservices/ProgramAndServices';
 import SummerCamp from './pages/summercamp/SummerCamp';
-import ChildRegistration from './pages/childregistration/ChildRegistration'; // Import ChildRegistration
+import ChildRegistration from './pages/childregistration/ChildRegistration';
+import Register from './pages/register/Register';
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
         <Route path="/contact" element={<Contact/>}/>
         <Route path="/programs" element={<ProgramAndServices/>}/>
         <Route path="/summercamp" element={<SummerCamp/>}/>
-        <Route path="/child-registration" element={<ChildRegistration />} /> {/* Add ChildRegistration route */}
+        <Route path="/child-registration" element={<ChildRegistration />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
       <Footer />
     </div>

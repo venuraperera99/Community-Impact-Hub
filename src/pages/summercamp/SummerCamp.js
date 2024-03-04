@@ -63,7 +63,7 @@ const SummerCamp = () => {
       
       <div className='content'>
         <h1>2024 Summer Camp Program Coding and Basketball</h1>
-        <h2 style={{color: "red"}}>Registration for our summer program opens on Monday<br/> Jan 16th 2024</h2>
+        <h2 style={{color: "#5a8375"}}>Registration for our summer program opens on Monday<br/> Jan 16th 2024</h2>
         <button className='register-button' onClick={handleRegisterClick}>REGISTER HERE: Summer Camp Program</button>
         <div className='session'>
           <h2>Dates & Times</h2>

@@ -1,5 +1,3 @@
-// Footer.js
-
 import React from 'react';
 import './Footer.css'; // Create a separate CSS file for footer styles if needed
 import { MdEmail } from "react-icons/md";
@@ -67,7 +65,7 @@ const Footer = () => {
             <h5>Contact</h5>
             <li><a href="#">Contact Form</a></li>
             <p><MdEmail size={"16"} color={"white"}/>info@communityimpacthub.com</p>
-            <p><FaPhoneAlt color={"white"}/> 647-555-5555</p>
+            <p><FaPhoneAlt color={"white"}/> 613-406-2254</p>
           </div>
   
         </div>
@@ -77,8 +75,3 @@ const Footer = () => {
   }
 
 export default Footer;
-
-{/*
-          <div className="copyright">
-          <p>&copy; 2024 Company Name. All rights reserved. | <a href="#">Terms of Use</a></p>
-        </div> */}

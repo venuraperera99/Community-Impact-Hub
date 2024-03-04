@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Import Link component
+import { Link } from 'react-router-dom';
 import './Home.css';
 import Image from "../../images/HeroImage.png"
 
@@ -11,7 +11,7 @@ const Home = () => {
       <div className="call-to-action">
         <h4>we believe in . . .</h4>
         <h1>Making a difference through collective action</h1>
-        <Link to="/about"> {/* Link the button to the contact page */}
+        <Link to="/about">
           <button className="learn-more-button">Learn More About Us</button>
         </Link>
         <img src={Image} alt="Home Page Tree Image"/>
@@ -51,13 +51,13 @@ const Home = () => {
 
         {/* Button Container */}
         <div className="button-container">
-          <Link to="/contact" className="section-button"> {/* Apply same styles as button */}
+          <Link to="/contact" className="section-button">
             Help
           </Link>
-          <Link to="/contact" className="section-button"> {/* Apply same styles as button */}
+          <Link to="/contact" className="section-button">
             Contact Us
           </Link>
-          <Link to="/contact" className="section-button"> {/* Apply same styles as button */}
+          <Link to="/register" className="section-button">
             Register
           </Link>
         </div>
