@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import './Register.css';
-import { TextField } from '@mui/material';
+import { TextField, Button } from '@mui/material';
 import { signUp } from '../../firebase/firebaseAuth';
 
 const validationSchema = Yup.object().shape({
@@ -42,7 +42,7 @@ const Register = () => {
     onSubmit: async (values) => {
       try {
         // Call signUp function with email and password
-        await signUp(values.email, values.password);
+        //await signUp(values.email, values.password);
 
         // Redirect or close modal after successful registration
         console.log('Registered Successfully: User: ' + values.email + ' Pass: ' + values.password);
@@ -142,6 +142,7 @@ const Register = () => {
               size="large"
               className="registerform-field"
             />
+            <Button style={{backgroundColor: "#5a8375"}} type="submit" variant="contained">Submit</Button>
           </form>
         </div>
       ) : (
