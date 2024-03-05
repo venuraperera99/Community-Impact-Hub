@@ -1,5 +1,6 @@
 import React from 'react';
 import './Footer.css'; // Create a separate CSS file for footer styles if needed
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import { MdEmail } from "react-icons/md";
 import { FaPhoneAlt, FaFacebook, FaTwitter } from "react-icons/fa";
 import { RiInstagramFill } from "react-icons/ri";
@@ -27,20 +28,20 @@ const Footer = () => {
 
           <div className="links-column">
             <h5>Navigation</h5>
-              <li><a href="#">Home</a></li>
-              <li><a href="#">Programs & Services</a></li>
-              <li><a href="#">Register</a></li>
-              <li><a href="#">Contact Us</a></li>
-              <li><a href="#">Help</a></li>
-              <li><a href="#">Profile</a></li>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/resources">Resources</Link></li>
+              <li><Link to="/programs">Programs & Services</Link></li>
+              <li><Link to="/register">Register</Link></li>
+              <li><Link to="/contact">Contact Us</Link></li>
+              <li><Link to="/summercamp">Summer Camp Program</Link></li>
           </div>
           <div className="links-column">
             <h5>About Us</h5>
-              <li><a href="#">Mission</a></li>
-              <li><a href="#">Vision</a></li>
-              <li><a href="#">Our Values</a></li>
-              <li><a href="#">Diversity, Equity & Inclusion</a></li>
-              <li><a href="#">Our Team</a></li>
+              <li><Link to="/about">Mission</Link></li>
+              <li><Link to="/about">Vision</Link></li>
+              <li><Link to="/about">Our Values</Link></li>
+              <li><Link to="/about">Diversity, Equity & Inclusion</Link></li>
+              <li><Link to="/about">Our Team</Link></li>
           </div>
 
           <div className="links-column">
@@ -54,7 +55,7 @@ const Footer = () => {
 
           <div className="links-column">
             <h5>Resources</h5>
-              <li><a href="#">Resources</a></li>
+              <li><Link to="/resources">Resources</Link></li>
               <li><a href="#">Publications</a></li>
               <li><a href="#">Podcast</a></li>
               <li><a href="#">News</a></li>
@@ -63,7 +64,7 @@ const Footer = () => {
 
           <div className="links-column">
             <h5>Contact</h5>
-            <li><a href="#">Contact Form</a></li>
+            <li><Link to="/contact">Contact Form</Link></li>
             <p><MdEmail size={"16"} color={"white"}/>info@communityimpacthub.com</p>
             <p><FaPhoneAlt color={"white"}/> 613-406-2254</p>
           </div>

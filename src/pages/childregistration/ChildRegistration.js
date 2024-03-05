@@ -3,7 +3,7 @@ import "./ChildRegistration.css"
 
 const ChildRegistration = () => {
   return (
-    <div>
+    <div className='outer'>
       <h1>Child Registration Page</h1>
       {/* Your child registration form */}
     </div>
