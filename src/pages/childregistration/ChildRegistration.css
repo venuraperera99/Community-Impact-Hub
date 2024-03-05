@@ -1,0 +1,92 @@
+.outer-container {
+    background: linear-gradient(to left, #ebeff2 20%, #ffffff 20%);  
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
+    height: 175vh; /* Adjust the height as needed */
+  }
+
+.container {
+    max-width: 800px;
+    padding: 40px;
+    background-color: #ffffff; /* White background for container */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+    border-radius: 10px; /* Rounded corners */
+  }
+  
+  h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #333333; /* Dark text color */
+  }
+  
+  .description {
+    font-size: 16px;
+    margin-bottom: 30px;
+    color: #666666; /* Lighter text color */
+  }
+  
+  .info {
+    margin-bottom: 30px;
+  }
+  
+  .camp-details p {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #333333; /* Dark text color */
+  }
+  
+  .registration-form {
+    display: grid;
+    gap: 20px;
+  }
+  
+  h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333333; /* Dark text color */
+  }
+  
+  label {
+    font-weight: bold;
+    color: #333333;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #cccccc; /* Light border color */
+    box-sizing: border-box;
+  }
+  
+  button.enroll-button {
+    background-color: #5a8375; /* Blue button color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  button.enroll-button:hover {
+    background-color: #004b38; /* Darker blue on hover */
+  }
+  
+  .pricing {
+    margin-top: 40px;
+  }
+  
+  .pricing h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333333; /* Dark text color */
+  }
+  
+  .pricing p {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #666666;
+  }
+  
