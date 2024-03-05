@@ -11,9 +11,36 @@
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 400px;
+    width: 600px;
+    max-width: 90%;
   }
   
+  .registerform {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center; /* Center the form vertically */
+  }
+  
+  .registerform-field {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .registerform-field input:focus {
+    outline: none;
+    border-color: #5a8375;
+  }
+  
+  .registerform-field.error input {
+    border-color: #ff6347;
+  }
+  
+  .error-message {
+    color: #ff6347;
+    font-size: 14px;
+  }
+
   
   
   

@@ -58,7 +58,7 @@ const Register = () => {
       {!isAccountCreated ? (
         <div className="form-container">
           <h1>Create an Account</h1>
-          <form onSubmit={formik.handleSubmit} className="form">
+          <form onSubmit={formik.handleSubmit} className="registerform">
             <TextField
               fullWidth
               id="firstName"
@@ -70,7 +70,7 @@ const Register = () => {
               helperText={formik.touched.firstName && formik.errors.firstName}
               variant="outlined"
               size="large"
-              className="form-field"
+              className="registerform-field"
             />
             <TextField
               fullWidth
@@ -83,7 +83,7 @@ const Register = () => {
               helperText={formik.touched.lastName && formik.errors.lastName}
               variant="outlined"
               size="large"
-              className="form-field"
+              className="registerform-field"
             />
             <TextField
               fullWidth
@@ -97,7 +97,7 @@ const Register = () => {
               helperText={formik.touched.birthday && formik.errors.birthday}
               variant="outlined"
               size="large"
-              className="form-field"
+              className="registerform-field"
               InputLabelProps={{
                 shrink: true,
               }}
@@ -113,7 +113,7 @@ const Register = () => {
               helperText={formik.touched.phoneNumber && formik.errors.phoneNumber}
               variant="outlined"
               size="large"
-              className="form-field"
+              className="registerform-field"
             />
             <TextField
               fullWidth
@@ -126,7 +126,7 @@ const Register = () => {
               helperText={formik.touched.email && formik.errors.email}
               variant="outlined"
               size="large"
-              className="form-field"
+              className="registerform-field"
             />
             <TextField
               fullWidth
@@ -140,7 +140,7 @@ const Register = () => {
               helperText={formik.touched.password && formik.errors.password}
               variant="outlined"
               size="large"
-              className="form-field"
+              className="registerform-field"
             />
           </form>
         </div>
