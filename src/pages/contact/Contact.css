@@ -1,6 +1,6 @@
 /* Contact.css */
 
-.outer {
+.outer-contact {
   background: linear-gradient(to left, #ebeff2 20%, #ffffff 20%);  
   display: flex;
   justify-content: center; /* Center the content horizontally */
@@ -63,4 +63,15 @@
 .form-container h1 {
   font-size: 72px; /* Double the font size */
   color: #5a8375; /* Set text color for h1 */
+}
+
+@media screen and (max-width: 768px) {
+  .outer-contact{
+    width: 200%;
+    height: 150vh;
+  }
+
+  .form-container {
+    height: 100vh;
+  }
 }

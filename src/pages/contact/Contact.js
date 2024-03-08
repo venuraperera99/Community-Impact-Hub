@@ -31,9 +31,9 @@ const Contact = () => {
   };
 
   return (
-    <div className='outer'>
+    <div className='outer-contact'>
       <div className="form-container">
-        <h1>Contact</h1>
+        <h1>Contact Us</h1>
         {/* Formik wrapper for the form */}
         <Formik
           initialValues={initialValues}
