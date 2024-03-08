@@ -1,7 +1,7 @@
 /* About.css */
 .outer-container {
     background: linear-gradient(to left, #ffffff 20%, #ebeff2 20%);
-    margin-top: -53px; /* Height of the header to align with its bottom */
+    
   }
   
   .about-container {
@@ -10,7 +10,7 @@
     min-height: calc(100vh - 150px); /* Adjust the value to accommodate the footer height */
     margin: 0px 75px;
     padding-bottom: 150px; /* Same as the height of the footer */
-    }
+  }
   
   .about-header {
     font-size: 64px;
@@ -68,4 +68,12 @@
   .big-button:hover {
     background-color: #004b38; /* Change the hover background color if needed */
   }
+
+  /* Media query for mobile view */
+@media screen and (max-width: 768px) {
+    
+  .outer-container {
+    width: 200%;
+  }
+}
   
