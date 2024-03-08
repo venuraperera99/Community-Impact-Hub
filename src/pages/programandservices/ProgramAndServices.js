@@ -31,7 +31,7 @@ const ProgramAndServices = () => {
     };
 
     return (
-        <div className='outer'>
+        <div className='outer-program'>
             <div className='content'>
                 <h1>Programs & Services</h1>
             </div>
