@@ -9,7 +9,8 @@ const Footer = () => {
     return (
       <div className="footer">
 
-        {/* Left Section - Company Info */}
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          {/* Left Section - Company Info */}
         <div className="company-info">
           <h1>Community Impact Hub</h1>
           <p>We are dedicated to empowering communities, fostering inclusivity, and contributing to the overall well-being of society. 
@@ -20,7 +21,6 @@ const Footer = () => {
             <FaTwitter size={28} color={'black'} style={{ marginRight: '45px' }} />
             <RiInstagramFill size={28} color={'black'} style={{ marginRight: '20px' }} />
           </div>
-          <p>&copy; 2024 communityimpacthub.ca</p>
         </div>
   
         {/* Right Section - Links and Contact */}
@@ -70,6 +70,10 @@ const Footer = () => {
           </div>
   
         </div>
+
+        </div>
+        <p>&copy; 2024 communityimpacthub.ca</p>
+
           
       </div>
     );

@@ -15,6 +15,10 @@
     width: 40%;
     text-align: left;
 }
+
+.company-info h1{
+    color: white;
+}
   
 .links-and-contact {
     width: 50%;
@@ -63,4 +67,27 @@
 .copyright {
     text-align: center;
     margin-top: 20px;
+}
+
+/* Media query for mobile view */
+@media screen and (max-width: 768px) {
+    
+    .footer {
+        width: 200%; /* Set footer to full width */
+        padding: 20px 10px; /* Adjust padding for smaller screens */
+    }
+
+    .company-info {
+        width: 100%; /* Full width for company info in mobile */
+        margin-bottom: 20px; /* Add margin for separation */
+    }
+
+    .links-and-contact {
+        width: 100%; /* Full width for links and contact in mobile */
+    }
+
+    .links-column {
+        width: 100%; /* Full width for each column */
+        margin-bottom: 20px; /* Add margin for separation */
+    }
 }
