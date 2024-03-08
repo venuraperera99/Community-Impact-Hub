@@ -5,7 +5,7 @@ import Image from "../../images/HeroImage.png"
 
 const Home = () => {
   return (
-    <div>
+    <div className="home-container">
 
       {/* Call to Action Section */}
       <div className="call-to-action">
@@ -14,7 +14,7 @@ const Home = () => {
         <Link to="/about">
           <button className="learn-more-button">Learn More About Us</button>
         </Link>
-        <img src={Image} alt="Home Page Tree Image"/>
+        <img src={Image} alt=""/>
       </div>
 
       {/* Resources Section */}
@@ -51,9 +51,6 @@ const Home = () => {
 
         {/* Button Container */}
         <div className="button-container">
-          <Link to="/contact" className="section-button">
-            Help
-          </Link>
           <Link to="/contact" className="section-button">
             Contact Us
           </Link>

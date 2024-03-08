@@ -1,4 +1,4 @@
-/* Home.css */
+
 
 .call-to-action {
     background-color: #ebeff2;
@@ -9,8 +9,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    max-width: calc(100vw - 525px);
-
+    width: calc(100vw - 525px);
   }
 
   .call-to-action-content {
@@ -90,6 +89,7 @@
     margin: 10px;
     padding: 10px 30px;
     border-radius: 5px; /* Round the edges of the resource box */
+    flex-wrap: wrap;
   }
   
   .resource-box h3 {
@@ -132,3 +132,40 @@
   .section-button:hover {
     background-color: #004b38;
   }
+
+  @media screen and (max-width: 768px) {
+    .home-container {
+      width: 200%;
+      margin-bottom: 50px;
+    }
+
+    .call-to-action {
+      width: 65%;
+    }
+
+    .call-to-action img {
+      position: absolute;
+      left: 400px;
+      padding-top: 100px;
+    }
+
+    .resource-boxes-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .resource-box {
+      width: 80%; /* Adjust width for better responsiveness */
+      margin: 10px auto; /* Center boxes horizontally */
+    }
+  
+    .button-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .section-button {
+      width: 80%;
+      margin: 20px auto; /* Center buttons horizontally */
+    }
+}
