@@ -2,8 +2,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     background-color: #f2f2f2;
+    padding-top: 40px;
+    padding-bottom: 40px;
   }
   
   .form-container {
@@ -41,6 +42,12 @@
     font-size: 14px;
   }
 
+  @media screen and (max-width: 768px) {
+    .register-container {
+      width: 200%;
+      height: 130vh;
+    }
+  }
   
   
   
