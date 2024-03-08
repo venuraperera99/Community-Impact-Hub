@@ -8,7 +8,7 @@ import Image from "../../images/Logo.png";
 export const Header = () => {
   return (
     <div className="header-container">
-      <img src={Image} alt="Community Impact Hub" style={{ width: '15%', height: 'auto' }}/>
+        <img src={Image} alt="Community Impact Hub" style={{  width: '200px', height: 'auto%' }} />
       <nav>
         <ul className="header-tabs">
           <li><Link to="/">Home</Link></li>
@@ -21,7 +21,7 @@ export const Header = () => {
         </ul>
       </nav>
 
-      <nav>
+      <nav >
         <ul>
           <li><FaUser size={24} color={'black'} /></li>
           <li><IoMdSearch size={28} color={'black'} /></li>

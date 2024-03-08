@@ -36,7 +36,7 @@
   }
   
   nav ul li svg {
-
+    
     vertical-align: middle;
     margin-right: 5px;
     font-size: 24px;
@@ -53,5 +53,35 @@
   
   nav ul.header-tabs li {
     margin-right: 25px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .header-container {
+      flex-direction: column;
+      align-items: stretch;
+      width: 200%;
+    }
+  
+    .nav-section {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .header-tabs {
+      flex-direction: row;
+    }
+  
+    .header-tabs li {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+  
+    .icons {
+      margin-top: 10px;
+    }
+  
+    .icons li {
+      margin-right: 15px;
+    }
   }
   
