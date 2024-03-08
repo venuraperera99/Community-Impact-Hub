@@ -46,20 +46,20 @@ const Footer = () => {
 
           <div className="links-column">
             <h5>Programs & Services</h5>
-              <li><a href="#">Overview</a></li>
-              <li><a href="#">Learn More</a></li>
-              <li><a href="#">Schedule</a></li>
-              <li><a href="#">Pricing</a></li>
-              <li><a href="#">Register</a></li>
+              <li><Link to="/programs">Overview</Link></li>
+              <li><Link to="/programs">Learn More</Link></li>
+              <li><Link to="/programs">Schedule</Link></li>
+              <li><Link to="/programs">Pricing</Link></li>
+              <li><Link to="/register">Register</Link></li>
           </div>
 
           <div className="links-column">
             <h5>Resources</h5>
               <li><Link to="/resources">Resources</Link></li>
-              <li><a href="#">Publications</a></li>
-              <li><a href="#">Podcast</a></li>
-              <li><a href="#">News</a></li>
-              <li><a href="#">Events</a></li>
+              <li><Link to="/resources">Publications</Link></li>
+              <li><Link to="/resources">Podcast</Link></li>
+              <li><Link to="/resources">News</Link></li>
+              <li><Link to="/resources">Events</Link></li>
           </div>
 
           <div className="links-column">
