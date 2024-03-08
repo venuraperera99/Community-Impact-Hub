@@ -3,7 +3,7 @@ import './ChildRegistration.css';
 
 const ChildRegistration = () => {
   return (
-    <div className='outer' style={{ height: '175vh' }}>
+    <div className='outer-container-child' >
       <div className='container'>
         <div className='info'>
           <h1>Summer Camp Registration</h1>

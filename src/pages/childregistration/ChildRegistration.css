@@ -1,9 +1,10 @@
-.outer-container {
+.outer-container-child {
     background: linear-gradient(to left, #ebeff2 20%, #ffffff 20%);  
     display: flex;
     justify-content: center; /* Center the content horizontally */
     align-items: center; /* Center the content vertically */
-    height: 175vh; /* Adjust the height as needed */
+    padding-top: 40px;
+    padding-bottom: 40px;
   }
 
 .container {
@@ -90,3 +91,8 @@
     color: #666666;
   }
   
+  @media screen and (max-width: 768px) {
+    .outer-container-child {
+      width: 200%;
+    }
+  }
