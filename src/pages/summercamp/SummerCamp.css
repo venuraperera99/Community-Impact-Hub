@@ -4,8 +4,13 @@
 
 .banner {
     background-color: black;
-    color: white;
     padding: 80px 20px;
+}
+
+.banner h1,
+.banner h2 {
+    color: white;
+
 }
 
 .content {
@@ -123,4 +128,10 @@
     content: "• ";
     color: black;
     /* Customize bullet point color */
+}
+
+@media screen and (max-width: 768px){
+    .summer-camp {
+        width: 200%;
+    }
 }
