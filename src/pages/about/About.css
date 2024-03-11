@@ -1,7 +1,7 @@
 /* About.css */
 .outer-container {
     background: linear-gradient(to left, #ffffff 20%, #ebeff2 20%);
-    
+    margin-top: -3.5%;    
   }
   
   .about-container {
@@ -74,6 +74,7 @@
     
   .outer-container {
     width: 200%;
+    margin-top: -3.5%;
   }
 }
   
