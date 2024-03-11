@@ -96,3 +96,29 @@
       width: 200%;
     }
   }
+
+  .week-checkboxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+  }
+  
+  .week-checkbox {
+    display: flex;
+    align-items: center;
+  }
+  
+  .week-checkbox input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  
+  .week-checkbox label {
+    font-size: 16px;
+    color: #333333;
+    cursor: pointer;
+  }
+  
+  .week-checkbox input[type="checkbox"]:checked + label {
+    font-weight: bold;
+    color: #5a8375;
+  }
