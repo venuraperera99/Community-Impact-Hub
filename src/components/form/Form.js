@@ -29,7 +29,11 @@ const validationSchema = Yup.object().shape({
     .required('Phone Number is required'),
   email: Yup.string()
     .email('Invalid email')
+    .matches(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, 'Invalid email format')
     .required('Email is required'),
+  password: Yup.string()
+    .min(6, 'Password must be at least 6 characters')
+    .required('Password is required'),
 });
 
 const Form = ({ onClose, onBack }) => {
@@ -140,7 +144,10 @@ const Form = ({ onClose, onBack }) => {
             value={formik.values.email}
             onChange={formik.handleChange}
             error={formik.touched.email && Boolean(formik.errors.email)}
-            helperText={formik.touched.email && formik.errors.email}
+            helperText={
+              (formik.touched.email && formik.errors.email) ||
+              (!formik.errors.email && 'Enter a valid email address')
+            }
             variant="outlined"
             size="large"
             className="form-field"
@@ -154,7 +161,7 @@ const Form = ({ onClose, onBack }) => {
             value={formik.values.password}
             onChange={formik.handleChange}
             error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
+            helperText={formik.touched.password && formik.errors.password ? formik.errors.password : 'Password must be at least 6 characters'}
             variant="outlined"
             size="large"
             className="form-field"
