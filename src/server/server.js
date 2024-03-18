@@ -1,11 +1,53 @@
+require("dotenv").config()
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
-const cors = require('cors'); // Import CORS module
+const cors = require('cors'); 
 const app = express();
 
 app.use(bodyParser.json());
-app.use(cors()); // Use CORS middleware
+app.use(cors()); 
+
+const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY)
+
+const storeItems = new Map([
+  [1, { priceInCents: 19900, name: "Week 1"}],
+  [2, { priceInCents: 19900, name: "Week 2"}],
+  [3, { priceInCents: 19900, name: "Week 3"}],
+  [4, { priceInCents: 19900, name: "Week 4"}],
+  [5, { priceInCents: 19900, name: "Week 5"}],
+  [6, { priceInCents: 19900, name: "Week 6"}],
+  [7, { priceInCents: 49900, name: "All Weeks Bundle"}]
+])
+
+app.post('/create-checkout-session', async (req, res) => {
+  try {
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      mode: 'payment',
+      line_items: req.body.items.map(item => {
+        const storeItem = storeItems.get(item.id)
+        return {
+          price_data: {
+            currency: "cad",
+            product_data: {
+              name: storeItem.name
+            },
+            unit_amount: storeItem.priceInCents
+          },
+          quantity: item.quantity
+        }
+      }),
+      success_url: `${process.env.SERVER_URL}/summercamp`,
+      cancel_url: "http://localhost:3000/child-registration"
+    })
+    res.json({ url: session.url })
+  } catch (e) {
+    res.status(500).json({error: e.message})
+  }
+})
+
 
 // POST endpoint to send email
 app.post('/api/send-email', (req, res) => {
@@ -17,7 +59,7 @@ app.post('/api/send-email', (req, res) => {
     secure: true,
     auth: {
       user: 'venura.perera1999@gmail.com',
-      pass: 'password'
+      pass: 'oaub ntsn ooet lcvx'
     }
   });
 

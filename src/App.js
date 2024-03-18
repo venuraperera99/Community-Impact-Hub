@@ -10,6 +10,7 @@ import ProgramAndServices from './pages/programandservices/ProgramAndServices';
 import SummerCamp from './pages/summercamp/SummerCamp';
 import ChildRegistration from './pages/childregistration/ChildRegistration';
 import Register from './pages/register/Register';
+import Checkout from './pages/checkout/Checkout';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/summercamp" element={<SummerCamp/>}/>
         <Route path="/child-registration" element={<ChildRegistration />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/checkout" element={<Checkout/>} />
       </Routes>
       <Footer />
     </div>

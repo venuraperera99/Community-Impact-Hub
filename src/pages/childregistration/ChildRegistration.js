@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
 import './ChildRegistration.css';
+import { useNavigate } from 'react-router-dom';
+
 
 const ChildRegistration = () => {
   const weeks = [
-    'July 8th - July 12th',
-    'July 15th - July 19st',
-    'July 22nd - July 26th',
-    'July 29th - August 2th',
-    'August 6th - August 9th',
-    'August 12th - August 16th',
+    'Week 1: July 8th - July 12th',
+    'Week 2: July 15th - July 19st',
+    'Week 3: July 22nd - July 26th',
+    'Week 4: July 29th - August 2th',
+    'Week 5: August 6th - August 9th',
+    'Week 6: August 12th - August 16th',
   ];
 
   const [selectedWeeks, setSelectedWeeks] = useState([]);
+  const navigate = useNavigate();
+
 
   const handleWeekChange = (week) => {
     if (selectedWeeks.includes(week)) {
@@ -25,8 +29,31 @@ const ChildRegistration = () => {
     event.preventDefault();
     // You can use the selectedWeeks array for further processing or submission
     console.log('Selected Weeks:', selectedWeeks);
+    fetch("http://localhost:5000/create-checkout-session", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        items: [
+          {id: 1, quantity: 2},
+          {id: 2, quantity: 1}
+        ]
+      })
+    }).then(res => {
+      if(res.ok) return res.json()
+      return res.json().then(json => Promise.reject(json))
+    }).then(({ url }) => {
+      console.log("url", url)
+      window.location = url
+    }).catch(e => {
+      console.error(e.error)
+    })
+    
     // Reset selected weeks after submission (you can adjust this behavior as needed)
     setSelectedWeeks([]);
+    
+    //navigate("/checkout")
   };
 
   return (
@@ -40,10 +67,10 @@ const ChildRegistration = () => {
             enroll your child today!
           </p>
           <div className='camp-details'>
-            <p><strong>Age Range:</strong> 6 - 12 years old</p>
+            <p><strong>Age Range:</strong> 10 - 18 years old</p>
             <p><strong>Drop-off Time:</strong> 8:30 AM</p>
             <p><strong>Pickup Time:</strong> 4:30 PM</p>
-            <p><strong>Camp Location:</strong> Sunny Valley Campground</p>
+            <p><strong>Camp Location:</strong> 485 Donald St, Ottawa, ON, K1K 1L8</p>
             <p><strong>Date Range:</strong> July 8th - August 16th</p>
           </div>
           <div className='pricing'>
