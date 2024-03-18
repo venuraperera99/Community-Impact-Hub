@@ -1,124 +1,180 @@
 .outer-container-child {
-    background: linear-gradient(to left, #ebeff2 20%, #ffffff 20%);  
-    display: flex;
-    justify-content: center; /* Center the content horizontally */
-    align-items: center; /* Center the content vertically */
-    padding-top: 40px;
-    padding-bottom: 40px;
-  }
+  background: linear-gradient(to left, #ebeff2 20%, #ffffff 20%);  
+  display: flex;
+  justify-content: center; /* Center the content horizontally */
+  align-items: center; /* Center the content vertically */
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
 
 .container {
-    max-width: 800px;
-    padding: 40px;
-    background-color: #ffffff; /* White background for container */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
-    border-radius: 10px; /* Rounded corners */
-  }
-  
-  h1 {
-    font-size: 32px;
-    margin-bottom: 20px;
-    color: #333333; /* Dark text color */
-  }
-  
-  .description {
-    font-size: 16px;
-    margin-bottom: 30px;
-    color: #666666; /* Lighter text color */
-  }
-  
-  .info {
-    margin-bottom: 30px;
-  }
-  
-  .camp-details p {
-    font-size: 16px;
-    margin-bottom: 10px;
-    color: #333333; /* Dark text color */
-  }
-  
-  .registration-form {
-    display: grid;
-    gap: 20px;
-  }
-  
-  h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333333; /* Dark text color */
-  }
-  
-  label {
-    font-weight: bold;
-    color: #333333;
-  }
-  
-  input {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #cccccc; /* Light border color */
-    box-sizing: border-box;
-  }
-  
-  button.enroll-button {
-    background-color: #5a8375; /* Blue button color */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 12px 20px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  button.enroll-button:hover {
-    background-color: #004b38; /* Darker blue on hover */
-  }
-  
-  .pricing {
-    margin-top: 40px;
-  }
-  
-  .pricing h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    color: #333333; /* Dark text color */
-  }
-  
-  .pricing p {
-    font-size: 16px;
-    margin-bottom: 5px;
-    color: #666666;
-  }
-  
-  @media screen and (max-width: 768px) {
-    .outer-container-child {
-      width: 200%;
-    }
-  }
+  max-width: 800px;
+  padding: 40px;
+  background-color: #ffffff; /* White background for container */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+  border-radius: 10px; /* Rounded corners */
+}
 
-  .week-checkboxes {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 10px;
+h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: #333333; /* Dark text color */
+}
+
+.description {
+  font-size: 16px;
+  margin-bottom: 30px;
+  color: #666666; /* Lighter text color */
+}
+
+.info {
+  margin-bottom: 30px;
+}
+
+.camp-details p {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #333333; /* Dark text color */
+}
+
+.registration-form {
+  display: grid;
+  gap: 20px;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333333; /* Dark text color */
+}
+
+label {
+  font-weight: bold;
+  color: #333333;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #cccccc; /* Light border color */
+  box-sizing: border-box;
+}
+
+button.enroll-button {
+  background-color: #5a8375; /* Blue button color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button.enroll-button:hover {
+  background-color: #004b38; /* Darker blue on hover */
+}
+
+.pricing {
+  margin-top: 40px;
+}
+
+.pricing h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333333; /* Dark text color */
+}
+
+.pricing p {
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: #666666;
+}
+
+@media screen and (max-width: 768px) {
+  .outer-container-child {
+    width: 200%;
   }
-  
-  .week-checkbox {
-    display: flex;
-    align-items: center;
-  }
-  
-  .week-checkbox input[type="checkbox"] {
-    margin-right: 10px;
-  }
-  
-  .week-checkbox label {
-    font-size: 16px;
-    color: #333333;
-    cursor: pointer;
-  }
-  
-  .week-checkbox input[type="checkbox"]:checked + label {
-    font-weight: bold;
-    color: #5a8375;
-  }
+}
+
+.week-checkboxes {
+  display: block; /* Change to block to stack vertically */
+}
+
+.week-checkbox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px; /* Add some space between each option */
+}
+
+.week-checkbox input[type="checkbox"] {
+  margin-right: 10px;
+  /* Show the checkbox */
+  opacity: 1;
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  order: -1; /* Move checkbox to the left */
+}
+
+/* Custom styled checkbox */
+.week-checkbox .custom-checkbox {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #333333;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+/* Custom checkbox checked state */
+.week-checkbox .custom-checkbox.checked {
+  background-color: #5a8375;
+}
+
+/* Custom checkbox inner checkmark */
+.week-checkbox .custom-checkbox.checked::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 6px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Style for the label next to the custom checkbox */
+.week-checkbox label {
+  font-size: 16px;
+  color: #333333;
+  line-height: 1.5;
+}
+
+/* Style for label when checkbox is checked */
+.week-checkbox .custom-checkbox.checked + label {
+  color: #5a8375;
+  font-weight: bold;
+}
+
+/* Hover effect for checkbox label */
+.week-checkbox label:hover {
+  color: #5a8375;
+}
+
+/* Focus effect for checkbox label */
+.week-checkbox label:focus {
+  outline: none;
+}
+
+/* Accessibility: Hide default checkbox visually but keep accessible to screen readers */
+.week-checkbox input[type="checkbox"]:focus + .custom-checkbox {
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Accessibility: Hide default checkbox visually but keep accessible to screen readers */
+.week-checkbox input[type="checkbox"]:checked + .custom-checkbox {
+  background-color: #5a8375;
+  border-color: #5a8375;
+}

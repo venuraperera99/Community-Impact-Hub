@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import './ChildRegistration.css';
-import { useNavigate } from 'react-router-dom';
-
 
 const ChildRegistration = () => {
   const weeks = [
@@ -14,32 +12,53 @@ const ChildRegistration = () => {
   ];
 
   const [selectedWeeks, setSelectedWeeks] = useState([]);
-  const navigate = useNavigate();
-
 
   const handleWeekChange = (week) => {
-    if (selectedWeeks.includes(week)) {
-      setSelectedWeeks(selectedWeeks.filter((selected) => selected !== week));
+    if (week === 'All Weeks') {
+      // If "All Weeks" is selected, toggle it
+      if (selectedWeeks.includes('All Weeks')) {
+        setSelectedWeeks([]);
+      } else {
+        setSelectedWeeks(['All Weeks']);
+      }
     } else {
-      setSelectedWeeks([...selectedWeeks, week]);
+      if (selectedWeeks.includes('All Weeks')) {
+        setSelectedWeeks([week]);
+      } else {
+        if (selectedWeeks.includes(week)) {
+          setSelectedWeeks(selectedWeeks.filter((selected) => selected !== week));
+        } else {
+          setSelectedWeeks([...selectedWeeks, week]);
+        }
+      }
     }
   };
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
     // You can use the selectedWeeks array for further processing or submission
+    let items = [];
+    if (selectedWeeks.includes('All Weeks')) {
+      items = [{ id: 7, quantity: 1 }];
+    } else {
+      items = selectedWeeks.map((week) => {
+        const weekNumber = parseInt(week.split(':')[0].replace('Week ', ''), 10);
+        return {
+          id: weekNumber,
+          quantity: 1,
+          week: week,
+        };
+      });
+    }
     console.log('Selected Weeks:', selectedWeeks);
+    console.log(items)
     fetch("http://localhost:5000/create-checkout-session", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({
-        items: [
-          {id: 1, quantity: 2},
-          {id: 2, quantity: 1}
-        ]
-      })
+      body: JSON.stringify({ items })
     }).then(res => {
       if(res.ok) return res.json()
       return res.json().then(json => Promise.reject(json))
@@ -100,6 +119,17 @@ const ChildRegistration = () => {
 
           <label>Choose Weeks:</label>
           <div className='week-checkboxes'>
+            <div className='week-checkbox'>
+              <label htmlFor='allWeeks'>All Weeks</label>
+              <input
+                type='checkbox'
+                id='allWeeks'
+                name='allWeeks'
+                value='All Weeks'
+                checked={selectedWeeks.includes('All Weeks')}
+                onChange={() => handleWeekChange('All Weeks')}
+              />
+            </div>
             {weeks.map((week, index) => (
               <div key={index} className='week-checkbox'>
                 <label htmlFor={`week-${index}`}>{week}</label>
@@ -110,6 +140,7 @@ const ChildRegistration = () => {
                   value={week}
                   checked={selectedWeeks.includes(week)}
                   onChange={() => handleWeekChange(week)}
+                  disabled={selectedWeeks.includes('All Weeks')}
                 />
               </div>
             ))}
