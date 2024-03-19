@@ -1,8 +1,15 @@
 // About.js
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook from react-router-dom
 import './About.css'; // Import the CSS file for styling
 
 const About = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  const handleGoBack = () => {
+    navigate(-1); // Go back one step in the history stack
+  };
+
   return (
     <div className='outer-container'>
       <div className="about-container">
@@ -67,7 +74,7 @@ const About = () => {
             complex challenges with resilience, dedication, and a shared bision for a better future. Together, we embody the spirit 
             of collaboration, embodying the belief that by working united, we can achieve meaningful impact and create lasting 
             positive change in the communities we serve.</p>
-          <button className="big-button">Back</button>
+          <button className="big-button" onClick={handleGoBack}>Back</button>
         </div>
 
       </div>
