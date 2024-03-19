@@ -1,0 +1,24 @@
+.not-found-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    background-color: #f8f9fa; /* Light gray background */
+  }
+  
+  .not-found-content {
+    text-align: center;
+  }
+  
+  .errorh1 {
+    font-size: 6rem;
+    margin-bottom: 20px;
+    color: #dc3545; /* Red color */
+  }
+  
+  p {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #343a40; /* Dark gray color */
+  }
+  
