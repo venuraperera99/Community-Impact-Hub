@@ -9,7 +9,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors()); 
 
-const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY)
+const stripe = require('stripe')("sk_test_51O0uCSLK717y4J2bjhRqVXM4TbF77EJGVWLhfnnSeuKpmuTJC2RuwyfLe3IDUPWJRZsQE2eG7iuJpKNuk651suG400vb72RWwC")
 
 const storeItems = new Map([
   [1, { priceInCents: 19900, name: "Week 1"}],
@@ -39,7 +39,7 @@ app.post('/create-checkout-session', async (req, res) => {
           quantity: item.quantity
         }
       }),
-      success_url: `${process.env.SERVER_URL}/summercamp`,
+      success_url: `http://localhost:3000/payment-success`,
       cancel_url: "http://localhost:3000/child-registration"
     })
     res.json({ url: session.url })
