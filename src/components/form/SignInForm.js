@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './SignInForm.css';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -23,6 +23,10 @@ const validationSchema = Yup.object().shape({
 });
 
 const SignInForm = ({ onClose, onSignUp }) => {
+
+  const [signInError, setSignInError] = useState(null);
+
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -31,12 +35,11 @@ const SignInForm = ({ onClose, onSignUp }) => {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
-        console.log('Signing in with:', values.email, values.password);
         await signIn(values.email, values.password);
-        console.log("SIGNED IN")
         onClose(); 
       } catch (error) {
         console.error('Sign In Error:', error.message);
+        setSignInError('Incorrect email or password. Please try again.');
       }
     },
   });
@@ -79,8 +82,8 @@ const SignInForm = ({ onClose, onSignUp }) => {
             type="password"
             value={formik.values.password}
             onChange={formik.handleChange}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
+            error={Boolean(signInError) || (formik.touched.password && Boolean(formik.errors.password))}
+            helperText={Boolean(signInError) ? <span style={{ color: 'red' }}>{signInError}</span> : (formik.touched.password && formik.errors.password)}
             variant="outlined"
             size="large"
             className="form-field"
