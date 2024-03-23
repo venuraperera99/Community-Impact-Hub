@@ -78,7 +78,7 @@
   }
   
   .resource-box {
-    width: 200px;
+    /*width: 200px;*/
     height: 200px; /* Set a fixed height for the resource-box */
     background-color: #fff;
     display: flex;
@@ -141,6 +141,10 @@
 
     .call-to-action {
       width: 65%;
+    }
+
+    .call-to-action h1 {
+      padding-right: 160px;
     }
 
     .call-to-action img {
