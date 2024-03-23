@@ -14,7 +14,7 @@ const Home = () => {
     try {
       const response = await fetch('http://localhost:1337/api/home-page');
       const data = await response.json();
-      console.log(data.data.attributes.heroSmall)
+      console.log(data.data.attributes.reosurceBlockText1)
       setHomeData(data.data.attributes);
     } catch (error) {
       console.error('Error fetching about data:', error);
@@ -43,27 +43,27 @@ const Home = () => {
             <div className="resource-boxes-container">
               <div className="resource-box">
                 <div className="resource-box-title">
-                  <h2>Publications</h2>
+                  <h2>{homeData.resourceBlockTitle1}</h2>
                 </div>
-                <p>cutting-edge research and thought-provoking publications curated by experts in the field</p>
+                <p>{homeData.resourceBlockText1[0].children[0].text}</p>
               </div>
               <div className="resource-box">
                 <div className="resource-box-title">
-                  <h2>Podcast</h2>
+                  <h2>{homeData.resourceBlockTitle2}</h2>
                 </div>
-                <p>where industry experts, thought leaders, and innovators share their stories and expertise</p>
+                <p>{homeData.resourceBlockText2[0].children[0].text}</p>
               </div>
               <div className="resource-box">
                 <div className="resource-box-title">
-                  <h2>News</h2>
+                  <h2>{homeData.resourceBlockTitle3}</h2>
                 </div>
-                <p>latest noteworthy achievements, milestones, and relevant industry developments</p>
+                <p>{homeData.resourceBlockText3[0].children[0].text}</p>
               </div>
               <div className="resource-box">
                 <div className="resource-box-title">
-                  <h2>Events</h2>
+                  <h2>{homeData.resourceBlockTitle4}</h2>
                 </div>
-                <p>previous highlights and diverse range of upcoming events to foster collaboration and community building</p>
+                <p>{homeData.resourceBlockText4[0].children[0].text}</p>
               </div>
             </div>
 
