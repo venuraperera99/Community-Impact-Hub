@@ -32,7 +32,6 @@ const ProgramAndServices = () => {
         try {
             const response = await fetch('http://localhost:1337/api/program-and-service?populate=*'); // Adjust URL to your Strapi endpoint
             const data = await response.json();
-            console.log(data)
             setPrograms(data.data.attributes.CardInfo);
         } catch (error) {
             console.error('Error fetching programs:', error);

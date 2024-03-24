@@ -9,9 +9,11 @@ const SummerCamp = () => {
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showSignInModal, setShowSignInModal] = useState(false);
   const [user, setUser] = useState(null);
+  const [summerData, setSummerData] = useState(null)
   const navigate = useNavigate();
   
   useEffect(() => {
+    fetchSummerData();
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         // User is signed in
@@ -25,6 +27,15 @@ const SummerCamp = () => {
     return () => unsubscribe();
   }, []);
   
+  const fetchSummerData = async () => {
+    try {
+      const response = await fetch('http://localhost:1337/api/summer-camp?populate=*');
+      const data = await response.json();
+      setSummerData(data.data.attributes);
+    } catch (error) {
+      console.error('Error fetching about data:', error);
+    }
+  };
 
   const openRegisterModal = () => {
     setShowRegisterModal(true);
@@ -56,62 +67,65 @@ const SummerCamp = () => {
 
   return (
     <div className='summer-camp'>
-      <div className='banner'>
-        <h1>2024 Summer Camp Program Coding and Basketball</h1>
-        <h2>(Ages 13-18)</h2>
-      </div>
-      
-      <div className='content'>
-        <h2 style={{color: "#5a8375"}}>Registration for our summer program opens on Monday<br/> Jan 16th 2024</h2>
-        <button className='register-button' onClick={handleRegisterClick}>REGISTER HERE: Summer Camp Program</button>
-        <div className='session'>
-          <h2>Dates & Times</h2>
-          <div className='session-list'>
-            <div>Session 1: July 8 - July 12</div>
-            <div>Session 2: July 15 - July 19</div>
-            <div>Session 3: July 22 - July 26</div>
-            <div>Session 4: July 29 - Aug 2</div>
-            <div>Session 5: Aug 6 - Aug 9 (4 days)</div>
-            <div>Session 6: Aug 12 - Aug 16</div>
+      {summerData ? 
+      <>
+        <div className='banner'>
+          <h1>{summerData.headerTitle}</h1>
+          <h2>{summerData.headerAge}</h2>
+        </div>
+        
+        <div className='content'>
+          <h2 style={{color: "#5a8375"}}>{summerData.registrationHeader}<br/> Jan 16th 2024</h2>
+          <button className='register-button' onClick={handleRegisterClick}>{summerData.registerButton1}</button>
+          <div className='session'>
+            <h2>{summerData.dateAndTimesTitle}</h2>
+            <div className='session-list'>
+              {summerData.SessionDates.map((session, index) => (
+                <div>Session {index+1}: {session.weekstart} - {session.weekend}</div>
+              ))}
+            </div>
+          </div>
+          <div className='registration'>
+            <h2>{summerData.paragraphTitle1}</h2>
+            {summerData.paragraphText1.map((line, index) => (
+              <p key={index}>{line.children[0].text}</p>
+            ))}
+            
+          </div>
+          <div className='learning'>
+            <h2>{summerData.paragraphTitle2}</h2>
+            <p>{summerData.paragraphText2[0].children[0].text}</p>
+          </div>
+          <div className='morning-learn'>
+            <h2>{summerData.paragraphTitle3}</h2>
+            <p>{summerData.paragraphText3[0].children[0].text}</p>
+            <div className='morning-learn-list'>
+            {summerData.paragraphText3.map((line, index) => {
+              if (index !== 0) {
+                return (
+                  <div key={index}>{line.children[0].text}</div>
+                );
+              } 
+            })}
+            </div>
+            
+          </div>
+          <div className='bring'>
+            <h2>{summerData.paragraphTitle4}</h2>
+            <div className='bring-list'>
+              {summerData.paragraphText4.map((listitem, index) => (
+                <div>{listitem.children[0].text}</div>
+              ))}
+            </div>
+          </div>
+          <div className='register-section'>
+            <h2>{summerData.buttonTitle}</h2>
+            <button onClick={handleRegisterClick}>{summerData.registerButton2}</button>
           </div>
         </div>
-        <div className='registration'>
-          <h2>UP PERFORMANCE Coding and Basketball CAMPS STILL HAVE ROOM BUT TIME IS RUNNING OUT!</h2>
-          <p>A Camp for young Athlete looking to better their Basketball skills, Coding and Digital skills and become great and have fun doing it!</p>
-          <p>08:30 AM TO 04:30 PM</p>
-          <p>Register for the Up Performance Basketball and Coding Camp where your young athlete will participate in our daily Performance Programs and a variety of Camp activities. These camps will be led by trained coaches from UP Performance under the Supervision of our skills coach.</p>
-          <p>Participants will engage in challenging and fun exercises. We will show the athlete how to improve their ball handling, how to shoot like an elite player, how to finish as a pro, and how to defend against the best. We will teach the player the winner mindset. Athletes will work to get top-notch strength and conditioning.</p>
-
-        </div>
-        <div className='learning'>
-          <h2>Fun and Flexible Learning</h2>
-          <p>Kids learn together in live, hands-on, interactive programs run by Engineering student from university who will act as live mentors. Kids can design, create, play, and code together in a small group setting, leading to fun and friendships.</p>
-        </div>
-        <div className='morning-learn'>
-          <h2>What Campers Learn in the morning</h2>
-          <p>Our programs turn “screen time” into learning time - while still preserving all the fun! Your child will learn valuable skills for today's digital world in our camps and Labs.</p>
-          <div className='morning-learn-list'>
-            <div>Coding, design, and media production skills.</div>
-            <div>Problem-solving.</div>
-            <div>Teamwork and collaboration.</div>
-            <div>Planning.</div>
-            <div>The value of community.</div>
-          </div>
-        </div>
-        <div className='bring'>
-          <h2>What to Bring</h2>
-          <div className='bring-list'>
-            <div>Laptop</div>
-            <div>Flash drive for saving files</div>
-            <div>Adobe ID (sign up for free Adobe ID at adobe.com and bring the user name and password with you)</div>
-            <div>Google Drive account (or similar cloud account) already set up in order to upload your files to the cloud</div>
-          </div>
-        </div>
-        <div className='register-section'>
-          <h2>Register Now</h2>
-          <button onClick={handleRegisterClick}>Spring / Summer Registration</button>
-        </div>
-      </div>
+      </> :
+      <p>Loading...</p>
+      }
       {showRegisterModal && <Form onClose={closeRegisterModal} onBack={openSignInModal}/>}
       {showSignInModal && <SignInForm onClose={closeSignInModal} onSignUp={openRegisterModal}/>}
     </div>

@@ -14,7 +14,6 @@ const Home = () => {
     try {
       const response = await fetch('http://localhost:1337/api/home-page');
       const data = await response.json();
-      console.log(data.data.attributes.reosurceBlockText1)
       setHomeData(data.data.attributes);
     } catch (error) {
       console.error('Error fetching about data:', error);
