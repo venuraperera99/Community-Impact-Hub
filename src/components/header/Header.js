@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link } from 'react-router-dom'; 
 import './Header.css';
 import { FaUser } from 'react-icons/fa';
-import { IoMdSearch } from 'react-icons/io';
 import Image from "../../images/Logo.png";
+import LanguagePicker from '../languagepicker/LanguagePicker';
 
 export const Header = () => {
   return (
@@ -24,7 +24,7 @@ export const Header = () => {
       <nav >
         <ul>
           <li><FaUser size={24} color={'black'} /></li>
-          <li><IoMdSearch size={28} color={'black'} /></li>
+          <li><LanguagePicker/></li>
         </ul>
       </nav>
     </div>
