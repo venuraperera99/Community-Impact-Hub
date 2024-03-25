@@ -16,10 +16,6 @@ h1 {
     font-size: 48px;
 }
 
-.carouselContainer {
-    width: 80%; /* Adjust as needed */
-}
-
 .card-container {
     display: flex;
     flex-wrap: wrap;
