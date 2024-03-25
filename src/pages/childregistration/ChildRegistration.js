@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './ChildRegistration.css';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-
+import LanguageContext from '../../contexts/LanguageContext/LanguageContext';
 
 const ChildRegistration = () => {
   const weeks = [
@@ -16,9 +16,34 @@ const ChildRegistration = () => {
 
   const [selectedWeeks, setSelectedWeeks] = useState([]);
   const [error, setError] = useState('');
-
-  const [emergencyContactNumber, setEmergencyContactNumber] = useState('');
   const [email, setEmail] = useState(''); // State to hold the email
+  const [childRegistrationData, setChildRegistrationData] = useState(null);
+  const { selectedLanguage } = useContext(LanguageContext);
+
+  useEffect(() => {
+    fetchAboutData();
+  }, [selectedLanguage]);
+
+  const fetchAboutData = async () => {
+    if(selectedLanguage === "English"){
+      try {
+        const response = await fetch('http://localhost:1337/api/child-registration');
+        const data = await response.json();
+        setChildRegistrationData(data.data.attributes);
+      } catch (error) {
+        console.error('Error fetching about data:', error);
+      }
+    } else if (selectedLanguage === "French"){
+      try {
+        const response = await fetch('http://localhost:1337/api/child-registration');
+        const data = await response.json();
+        setChildRegistrationData(data.data.attributes);
+      } catch (error) {
+        console.error('Error fetching about data:', error);
+      }
+    }
+    
+  };
 
 
   const handleWeekChange = (week) => {
@@ -111,192 +136,191 @@ const ChildRegistration = () => {
       setEmail('');
     },
   });
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    
-  };
+  
 
   return (
     <div className='outer-container-child'>
-      <div className='container'>
-        <div className='info'>
-          <h1>Summer Camp Registration</h1>
-          <p className='description'>
-            Welcome to our exciting summer camp! Let your child explore the great outdoors,
-            make new friends, and create unforgettable memories. Spaces are limited, so
-            enroll your child today!
-          </p>
-          <div className='camp-details'>
-            <p><strong>Age Range:</strong> 10 - 18 years old</p>
-            <p><strong>Drop-off Time:</strong> 8:30 AM</p>
-            <p><strong>Pickup Time:</strong> 4:30 PM</p>
-            <p><strong>Camp Location:</strong> 485 Donald St, Ottawa, ON, K1K 1L8</p>
-            <p><strong>Date Range:</strong> July 8th - August 16th</p>
-          </div>
-          <div className='pricing'>
-            <h2>Pricing</h2>
-            <p><strong>You can register your child for our summer camp, selecting any week</strong></p>
-            <p>Regular Price: $199 per week</p>
-            <p>Full Camp Bundle: $499 for 6 weeks</p>
-          </div>
-        </div>
-
-        <form className='registration-form' onSubmit={formik.handleSubmit}>
-        <h2>Child Information</h2>
-          <div className='form-group'>
-            <label htmlFor='childName'>Child's Name:</label>
-            <input
-              type='text'
-              id='childName'
-              name='childName'
-              placeholder="Enter child's name"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.childName}
-              className={formik.touched.childName && formik.errors.childName ? 'error' : ''}
-            />
-            {formik.touched.childName && formik.errors.childName ? (
-              <div className='error-message'>{formik.errors.childName}</div>
-            ) : null}
-          </div>
-
-          <div className='form-group'>
-            <label htmlFor='age'>Age:</label>
-            <input
-              type='number'
-              id='age'
-              name='age'
-              placeholder="Enter child's age"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.age}
-              className={formik.touched.age && formik.errors.age ? 'error' : ''}
-            />
-            {formik.touched.age && formik.errors.age ? (
-              <div className='error-message'>{formik.errors.age}</div>
-            ) : null}
-          </div>
-
-          <div className='form-group'>
-            <label htmlFor='parentName'>Parent's Name:</label>
-            <input
-              type='text'
-              id='parentName'
-              name='parentName'
-              placeholder="Enter parent's name"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.parentName}
-              className={formik.touched.parentName && formik.errors.parentName ? 'error' : ''}
-            />
-            
-            {formik.touched.parentName && formik.errors.parentName ? (
-              <div className='error-message'>{formik.errors.parentName}</div>
-            ) : null}
-          </div>
-
-          <div className='form-group'>
-            <label htmlFor='email'>Email:</label>
-            <input
-              type='email'
-              id='email'
-              name='email'
-              placeholder='Enter email'
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.email}
-              className={formik.touched.email && formik.errors.email ? 'error' : ''}
-            />
-            {formik.touched.email && formik.errors.email ? (
-              <div className='error-message'>{formik.errors.email}</div>
-            ) : null}
-          </div>
-
-          <div className='form-group'>
-            <label htmlFor='phone'>Phone:</label>
-            <input
-              type='tel'
-              id='phone'
-              name='phone'
-              placeholder='Enter phone number'
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.phone}
-              className={formik.touched.phone && formik.errors.phone ? 'error' : ''}
-            />
-            {formik.touched.phone && formik.errors.phone ? (
-              <div className='error-message'>{formik.errors.phone}</div>
-            ) : null}
-          </div>
-
-          <label>Choose Weeks:</label>
-          <div className='week-checkboxes'>
-            <div className='week-checkbox'>
-              <label htmlFor='allWeeks'>All Weeks</label>
-              <input
-                type='checkbox'
-                id='allWeeks'
-                name='allWeeks'
-                value='All Weeks'
-                checked={selectedWeeks.includes('All Weeks')}
-                onChange={() => handleWeekChange('All Weeks')}
-              />
+      {childRegistrationData ?
+      <>
+        <div className='container'>
+          <div className='info'>
+            <h1>{childRegistrationData.formTitle}</h1>
+            <p className='description'>
+            {childRegistrationData.formDescription}
+            </p>
+            <div className='camp-details'>
+              <p><strong>{childRegistrationData.infoTitle1}:</strong> {childRegistrationData.infoData1}</p>
+              <p><strong>{childRegistrationData.infoTitle2}:</strong> {childRegistrationData.infoData2}</p>
+              <p><strong>{childRegistrationData.infoTitle3}:</strong> {childRegistrationData.infoData3}</p>
+              <p><strong>{childRegistrationData.infoTitle4}:</strong> {childRegistrationData.infoData4}</p>
+              <p><strong>{childRegistrationData.infoTitle5}:</strong> {childRegistrationData.infoData5}</p>
             </div>
-            {weeks.map((week, index) => (
-              <div key={index} className='week-checkbox'>
-                <label htmlFor={`week-${index}`}>{week}</label>
+            <div className='pricing'>
+              <h2>{childRegistrationData.pricingTitle}</h2>
+              <p><strong>{childRegistrationData.pricingDescription}</strong></p>
+              <p>{childRegistrationData.regularPriceTitle}: {childRegistrationData.regularPriceData}</p>
+              <p>{childRegistrationData.bundlePriceTitle}: {childRegistrationData.bundlePriceData}</p>
+            </div>
+          </div>
+
+          <form className='registration-form' onSubmit={formik.handleSubmit}>
+          <h2>{childRegistrationData.childFormTitle}</h2>
+            <div className='form-group'>
+              <label htmlFor='childName'>{childRegistrationData.childName}:</label>
+              <input
+                type='text'
+                id='childName'
+                name='childName'
+                placeholder="Enter child's name"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.childName}
+                className={formik.touched.childName && formik.errors.childName ? 'error' : ''}
+              />
+              {formik.touched.childName && formik.errors.childName ? (
+                <div className='error-message'>{formik.errors.childName}</div>
+              ) : null}
+            </div>
+
+            <div className='form-group'>
+              <label htmlFor='age'>{childRegistrationData.childAge}:</label>
+              <input
+                type='number'
+                id='age'
+                name='age'
+                placeholder="Enter child's age"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.age}
+                className={formik.touched.age && formik.errors.age ? 'error' : ''}
+              />
+              {formik.touched.age && formik.errors.age ? (
+                <div className='error-message'>{formik.errors.age}</div>
+              ) : null}
+            </div>
+
+            <div className='form-group'>
+              <label htmlFor='parentName'>{childRegistrationData.childParentName}:</label>
+              <input
+                type='text'
+                id='parentName'
+                name='parentName'
+                placeholder="Enter parent's name"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.parentName}
+                className={formik.touched.parentName && formik.errors.parentName ? 'error' : ''}
+              />
+              
+              {formik.touched.parentName && formik.errors.parentName ? (
+                <div className='error-message'>{formik.errors.parentName}</div>
+              ) : null}
+            </div>
+
+            <div className='form-group'>
+              <label htmlFor='email'>{childRegistrationData.childEmail}:</label>
+              <input
+                type='email'
+                id='email'
+                name='email'
+                placeholder='Enter email'
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.email}
+                className={formik.touched.email && formik.errors.email ? 'error' : ''}
+              />
+              {formik.touched.email && formik.errors.email ? (
+                <div className='error-message'>{formik.errors.email}</div>
+              ) : null}
+            </div>
+
+            <div className='form-group'>
+              <label htmlFor='phone'>{childRegistrationData.childPhone}:</label>
+              <input
+                type='tel'
+                id='phone'
+                name='phone'
+                placeholder='Enter phone number'
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.phone}
+                className={formik.touched.phone && formik.errors.phone ? 'error' : ''}
+              />
+              {formik.touched.phone && formik.errors.phone ? (
+                <div className='error-message'>{formik.errors.phone}</div>
+              ) : null}
+            </div>
+
+            <label>{childRegistrationData.chooseWeeksTitle}:</label>
+            <div className='week-checkboxes'>
+              <div className='week-checkbox'>
+                <label htmlFor='allWeeks'>All Weeks</label>
                 <input
                   type='checkbox'
-                  id={`week-${index}`}
-                  name={`week-${index}`}
-                  value={week}
-                  checked={selectedWeeks.includes(week)}
-                  onChange={() => handleWeekChange(week)}
-                  disabled={selectedWeeks.includes('All Weeks')}
+                  id='allWeeks'
+                  name='allWeeks'
+                  value='All Weeks'
+                  checked={selectedWeeks.includes('All Weeks')}
+                  onChange={() => handleWeekChange('All Weeks')}
                 />
               </div>
-            ))}
-            {error && <p className='error-message'>{error}</p>}
-          </div>
+              {weeks.map((week, index) => (
+                <div key={index} className='week-checkbox'>
+                  <label htmlFor={`week-${index}`}>{week}</label>
+                  <input
+                    type='checkbox'
+                    id={`week-${index}`}
+                    name={`week-${index}`}
+                    value={week}
+                    checked={selectedWeeks.includes(week)}
+                    onChange={() => handleWeekChange(week)}
+                    disabled={selectedWeeks.includes('All Weeks')}
+                  />
+                </div>
+              ))}
+              {error && <p className='error-message'>{error}</p>}
+            </div>
 
-          <div className='form-group'>
-            <label htmlFor='emergencyContact'>Emergency Contact:</label>
-            <input
-              type='text'
-              id='emergencyContact'
-              name='emergencyContact'
-              placeholder='Enter emergency contact name'
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.emergencyContact}
-              className={formik.touched.emergencyContact && formik.errors.emergencyContact ? 'error' : ''}
-            />
-            {formik.touched.emergencyContact && formik.errors.emergencyContact ? (
-              <div className='error-message'>{formik.errors.emergencyContact}</div>
-            ) : null}
-          </div>
+            <div className='form-group'>
+              <label htmlFor='emergencyContact'>{childRegistrationData.childEmergencyContactName}:</label>
+              <input
+                type='text'
+                id='emergencyContact'
+                name='emergencyContact'
+                placeholder='Enter emergency contact name'
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.emergencyContact}
+                className={formik.touched.emergencyContact && formik.errors.emergencyContact ? 'error' : ''}
+              />
+              {formik.touched.emergencyContact && formik.errors.emergencyContact ? (
+                <div className='error-message'>{formik.errors.emergencyContact}</div>
+              ) : null}
+            </div>
 
-          <div className='form-group'>
-            <label htmlFor='emergencyContactNumber'>Emergency Contact Number:</label>
-            <input
-              type='tel'
-              id='emergencyContactNumber'
-              name='emergencyContactNumber'
-              placeholder='Enter emergency contact number'
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.emergencyContactNumber}
-              className={formik.touched.emergencyContactNumber && formik.errors.emergencyContactNumber ? 'error' : ''}
-            />
-            {formik.touched.emergencyContactNumber && formik.errors.emergencyContactNumber ? (
-              <div className='error-message'>{formik.errors.emergencyContactNumber}</div>
-            ) : null}
-          </div>
+            <div className='form-group'>
+              <label htmlFor='emergencyContactNumber'>{childRegistrationData.childEmergencyContactNumber}:</label>
+              <input
+                type='tel'
+                id='emergencyContactNumber'
+                name='emergencyContactNumber'
+                placeholder='Enter emergency contact number'
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.emergencyContactNumber}
+                className={formik.touched.emergencyContactNumber && formik.errors.emergencyContactNumber ? 'error' : ''}
+              />
+              {formik.touched.emergencyContactNumber && formik.errors.emergencyContactNumber ? (
+                <div className='error-message'>{formik.errors.emergencyContactNumber}</div>
+              ) : null}
+            </div>
 
-          <button type='submit' className='enroll-button'>Enroll Now</button>
-        </form>
-      </div>
+            <button type='submit' className='enroll-button'>{childRegistrationData.enrollButton}</button>
+          </form>
+        </div>
+      </> :
+      <p>Loading...</p>}
+      
     </div>
   );
 };
