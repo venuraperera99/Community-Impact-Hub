@@ -19,7 +19,6 @@ const About = () => {
       try {
         const response = await fetch('http://localhost:1337/api/about-page');
         const data = await response.json();
-        console.log(selectedLanguage)
         setAboutData(data.data.attributes);
       } catch (error) {
         console.error('Error fetching about data:', error);
@@ -28,7 +27,6 @@ const About = () => {
       try {
         const response = await fetch('http://localhost:1337/api/about-page-french');
         const data = await response.json();
-        console.log(selectedLanguage)
         setAboutData(data.data.attributes);
       } catch (error) {
         console.error('Error fetching about data:', error);
