@@ -124,7 +124,7 @@ const SummerCamp = () => {
           </div>
         </div>
       </> :
-      <p>Loading...</p>
+      <p className='outer-container-success'>Loading...</p>
       }
       {showRegisterModal && <Form onClose={closeRegisterModal} onBack={openSignInModal}/>}
       {showSignInModal && <SignInForm onClose={closeSignInModal} onSignUp={openRegisterModal}/>}

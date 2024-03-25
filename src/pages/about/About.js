@@ -72,7 +72,7 @@ const About = () => {
             </div>
           </>
         ) : (
-          <p>Loading...</p>
+          <p className='outer-container-success'>Loading...</p>
         )}
 
       </div>
