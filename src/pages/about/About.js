@@ -1,24 +1,40 @@
 // About.js
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate hook from react-router-dom
 import './About.css'; // Import the CSS file for styling
+import LanguageContext from '../../contexts/LanguageContext/LanguageContext';
+
 
 const About = () => {
   const navigate = useNavigate(); // Initialize useNavigate
   const [aboutData, setAboutData] = useState(null);
+  const { selectedLanguage } = useContext(LanguageContext);
 
   useEffect(() => {
     fetchAboutData();
-  }, []);
+  }, [selectedLanguage]);
 
   const fetchAboutData = async () => {
-    try {
-      const response = await fetch('http://localhost:1337/api/about-page');
-      const data = await response.json();
-      setAboutData(data.data.attributes);
-    } catch (error) {
-      console.error('Error fetching about data:', error);
+    if(selectedLanguage === "English"){
+      try {
+        const response = await fetch('http://localhost:1337/api/about-page');
+        const data = await response.json();
+        console.log(selectedLanguage)
+        setAboutData(data.data.attributes);
+      } catch (error) {
+        console.error('Error fetching about data:', error);
+      }
+    } else if (selectedLanguage === "French"){
+      try {
+        const response = await fetch('http://localhost:1337/api/about-page-french');
+        const data = await response.json();
+        console.log(selectedLanguage)
+        setAboutData(data.data.attributes);
+      } catch (error) {
+        console.error('Error fetching about data:', error);
+      }
     }
+    
   };
 
   const handleGoBack = () => {
