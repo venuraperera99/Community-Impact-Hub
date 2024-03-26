@@ -1,24 +1,36 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import './Footer.css';
 import { Link } from 'react-router-dom'; 
 import { MdEmail } from "react-icons/md";
 import { FaPhoneAlt, FaFacebook, FaTwitter } from "react-icons/fa";
 import { RiInstagramFill } from "react-icons/ri";
+import LanguageContext from '../../contexts/LanguageContext/LanguageContext';
 
 const Footer = () => {
     const [footerData, setFooterData] = useState(null);
+    const { selectedLanguage } = useContext(LanguageContext);
 
     useEffect(() => {
       fetchFooterData();
-    }, []);
+    }, [selectedLanguage]);
 
     const fetchFooterData = async () => {
-      try {
-        const response = await fetch('http://localhost:1337/api/footer?populate=*');
-        const data = await response.json();
-        setFooterData(data.data.attributes);
-      } catch (error) {
-        console.error('Error fetching about data:', error);
+      if(selectedLanguage === "English"){
+        try {
+          const response = await fetch('http://localhost:1337/api/footer?populate=deep');
+          const data = await response.json();
+          setFooterData(data.data.attributes);
+        } catch (error) {
+          console.error('Error fetching about data:', error);
+        }
+      } else if (selectedLanguage === "French") {
+        try {
+          const response = await fetch('http://localhost:1337/api/footer-french?populate=*');
+          const data = await response.json();
+          setFooterData(data.data.attributes);
+        } catch (error) {
+          console.error('Error fetching about data:', error);
+        }
       }
     };
 
@@ -42,44 +54,39 @@ const Footer = () => {
           <div className="links-and-contact">
 
             <div className="links-column">
-              <h5>Navigation</h5>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/resources">Resources</Link></li>
-                <li><Link to="/programs">Programs & Services</Link></li>
-                <li><Link to="/register">Register</Link></li>
-                <li><Link to="/contact">Contact Us</Link></li>
-                <li><Link to="/summercamp">Summer Camp Program</Link></li>
+              <h5>{footerData.LinksColumn[0].LinksColumnHeader}</h5>
+                <li><Link to="/">{footerData.LinksColumn[0].Link[0].link}</Link></li>
+                <li><Link to="/resources">{footerData.LinksColumn[0].Link[1].link}</Link></li>
+                <li><Link to="/programs">{footerData.LinksColumn[0].Link[2].link}</Link></li>
+                <li><Link to="/register">{footerData.LinksColumn[0].Link[3].link}</Link></li>
+                <li><Link to="/contact">{footerData.LinksColumn[0].Link[4].link}</Link></li>
+                <li><Link to="/summercamp">{footerData.LinksColumn[0].Link[5].link}</Link></li>
             </div>
             <div className="links-column">
-              <h5>About Us</h5>
-                <li><Link to="/about">Mission</Link></li>
-                <li><Link to="/about">Vision</Link></li>
-                <li><Link to="/about">Our Values</Link></li>
-                <li><Link to="/about">Diversity, Equity & Inclusion</Link></li>
-                <li><Link to="/about">Our Team</Link></li>
+              <h5>{footerData.LinksColumn[1].LinksColumnHeader}</h5>
+                {footerData.LinksColumn[1].Link.map((linklst, index) => (
+                  <li key={index} ><Link to="/about">{linklst.link}</Link></li>
+                ))}
             </div>
 
             <div className="links-column">
-              <h5>Programs & Services</h5>
-                <li><Link to="/programs">Overview</Link></li>
-                <li><Link to="/programs">Learn More</Link></li>
-                <li><Link to="/programs">Schedule</Link></li>
-                <li><Link to="/programs">Pricing</Link></li>
-                <li><Link to="/register">Register</Link></li>
+              <h5>{footerData.LinksColumn[2].LinksColumnHeader}</h5>
+                {footerData.LinksColumn[2].Link.map((linklst, index) => (
+                  <li key={index} ><Link to="/programs">{linklst.link}</Link></li>
+                ))}
+
             </div>
 
             <div className="links-column">
-              <h5>Resources</h5>
-                <li><Link to="/resources">Resources</Link></li>
-                <li><Link to="/resources">Publications</Link></li>
-                <li><Link to="/resources">Podcast</Link></li>
-                <li><Link to="/resources">News</Link></li>
-                <li><Link to="/resources">Events</Link></li>
+              <h5>{footerData.LinksColumn[3].LinksColumnHeader}</h5>
+                {footerData.LinksColumn[3].Link.map((linklst, index) => (
+                  <li key={index} ><Link to="/resources">{linklst.link}</Link></li>
+                ))}
             </div>
 
             <div className="links-column">
-              <h5>Contact</h5>
-              <li><Link to="/contact">Contact Form</Link></li>
+              <h5>{footerData.LinksColumn[4].LinksColumnHeader}</h5>
+              <li><Link to="/contact">{footerData.LinksColumn[4].Link[0].link}</Link></li>
               <p><MdEmail size={"16"} />{footerData.footerEmail}</p>
               <p><FaPhoneAlt size={"16"} />{footerData.footerPhone}</p>
             </div>
