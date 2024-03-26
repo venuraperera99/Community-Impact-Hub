@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import './SignInForm.css';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -13,6 +13,8 @@ import {
 } from '@mui/material';
 import { IoClose } from "react-icons/io5";
 import { signIn } from '../../firebase/firebaseAuth'; // Import signIn function for user sign-in
+import LanguageContext from '../../contexts/LanguageContext/LanguageContext';
+
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -25,7 +27,33 @@ const validationSchema = Yup.object().shape({
 const SignInForm = ({ onClose, onSignUp }) => {
 
   const [signInError, setSignInError] = useState(null);
+  const [signInData, setSignInData] = useState(null);
+  const { selectedLanguage } = useContext(LanguageContext);
 
+  useEffect(() => {
+    fetchSignInData();
+  }, [selectedLanguage]);
+
+  const fetchSignInData = async () => {
+    if(selectedLanguage === "English"){
+      try {
+        const response = await fetch('http://localhost:1337/api/sign-in');
+        const data = await response.json();
+        setSignInData(data.data.attributes);
+      } catch (error) {
+        console.error('Error fetching about data:', error);
+      }
+    } else if (selectedLanguage === "French"){
+      try {
+        const response = await fetch('http://localhost:1337/api/sign-in-french');
+        const data = await response.json();
+        setSignInData(data.data.attributes);
+      } catch (error) {
+        console.error('Error fetching about data:', error);
+      }
+    }
+    
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -55,49 +83,54 @@ const SignInForm = ({ onClose, onSignUp }) => {
 
   return (
     <Dialog open={true} onClose={onClose}>
-      <div className='icon-container-sign-in'>
-        <IoClose size={24} className='icon close-sign-in' onClick={handleClose} />
-      </div>
-      <DialogTitle style={{ marginBottom: '10px' }}>Sign In</DialogTitle>
-      <DialogContent>
-        <form onSubmit={formik.handleSubmit} className="form">
-          <TextField
-            fullWidth
-            id="email"
-            name="email"
-            label="Email"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            error={formik.touched.email && Boolean(formik.errors.email)}
-            helperText={formik.touched.email && formik.errors.email}
-            variant="outlined"
-            size="large"
-            className="form-field"
-          />
-          <TextField
-            fullWidth
-            id="password"
-            name="password"
-            label="Password"
-            type="password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            error={Boolean(signInError) || (formik.touched.password && Boolean(formik.errors.password))}
-            helperText={Boolean(signInError) ? <span style={{ color: 'red' }}>{signInError}</span> : (formik.touched.password && formik.errors.password)}
-            variant="outlined"
-            size="large"
-            className="form-field"
-          />
-          <DialogActions className="actions">
-            <Button style={{backgroundColor: "#5a8375", width: "100%"}} type="submit" variant="contained">
-              Sign In
-            </Button>
-          </DialogActions>
-        </form>
-        <Typography variant="body2" align="center">
-          Don't have an account? <span className="sign-up-link" onClick={handleSignUpClick}>SIGN UP</span>
-        </Typography>
-      </DialogContent>
+      {signInData ? 
+      <>
+        <div className='icon-container-sign-in'>
+          <IoClose size={24} className='icon close-sign-in' onClick={handleClose} />
+        </div>
+        <DialogTitle style={{ marginBottom: '10px' }}>{signInData.formTitle}</DialogTitle>
+        <DialogContent>
+          <form onSubmit={formik.handleSubmit} className="form">
+            <TextField
+              fullWidth
+              id="email"
+              name="email"
+              label={signInData.emailPlaceholder}
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
+              variant="outlined"
+              size="large"
+              className="form-field"
+            />
+            <TextField
+              fullWidth
+              id="password"
+              name="password"
+              label={signInData.passwordPlaceholder}
+              type="password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              error={Boolean(signInError) || (formik.touched.password && Boolean(formik.errors.password))}
+              helperText={Boolean(signInError) ? <span style={{ color: 'red' }}>{signInError}</span> : (formik.touched.password && formik.errors.password)}
+              variant="outlined"
+              size="large"
+              className="form-field"
+            />
+            <DialogActions className="actions">
+              <Button style={{backgroundColor: "#5a8375", width: "100%"}} type="submit" variant="contained">
+                {signInData.buttonTitle}
+              </Button>
+            </DialogActions>
+          </form>
+          <Typography variant="body2" align="center">
+            {signInData.signUpText} <span className="sign-up-link" onClick={handleSignUpClick}>{signInData.signUp}</span>
+          </Typography>
+        </DialogContent>
+      </> :
+      <p>Loading...</p>}
+      
     </Dialog>
   );
 };
