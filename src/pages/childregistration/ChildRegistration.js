@@ -21,10 +21,10 @@ const ChildRegistration = () => {
   const { selectedLanguage } = useContext(LanguageContext);
 
   useEffect(() => {
-    fetchAboutData();
+    fetchChildData();
   }, [selectedLanguage]);
 
-  const fetchAboutData = async () => {
+  const fetchChildData = async () => {
     if(selectedLanguage === "English"){
       try {
         const response = await fetch('http://localhost:1337/api/child-registration');
@@ -35,7 +35,7 @@ const ChildRegistration = () => {
       }
     } else if (selectedLanguage === "French"){
       try {
-        const response = await fetch('http://localhost:1337/api/child-registration');
+        const response = await fetch('http://localhost:1337/api/child-registration-french');
         const data = await response.json();
         setChildRegistrationData(data.data.attributes);
       } catch (error) {

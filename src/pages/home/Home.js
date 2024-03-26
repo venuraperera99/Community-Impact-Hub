@@ -1,23 +1,38 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
 import Image from "../../images/HeroImage.png"
+import LanguageContext from '../../contexts/LanguageContext/LanguageContext';
+
 
 const Home = () => {
   const [homeData, setHomeData] = useState(null);
+  const { selectedLanguage } = useContext(LanguageContext);
+
 
   useEffect(() => {
     fetchHomeData();
-  }, []);
+  }, [selectedLanguage]);
 
   const fetchHomeData = async () => {
-    try {
-      const response = await fetch('http://localhost:1337/api/home-page');
-      const data = await response.json();
-      setHomeData(data.data.attributes);
-    } catch (error) {
-      console.error('Error fetching about data:', error);
+    if(selectedLanguage === "English"){
+      try {
+        const response = await fetch('http://localhost:1337/api/home-page');
+        const data = await response.json();
+        setHomeData(data.data.attributes);
+      } catch (error) {
+        console.error('Error fetching about data:', error);
+      }
+    } else if (selectedLanguage === "French") {
+      try {
+        const response = await fetch('http://localhost:1337/api/home-page-french');
+        const data = await response.json();
+        setHomeData(data.data.attributes);
+      } catch (error) {
+        console.error('Error fetching about data:', error);
+      }
     }
+    
   };
   return (
     <div className="home-container">

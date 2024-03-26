@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './SummerCamp.css';
 import Form from '../../components/form/Form';
 import SignInForm from '../../components/form/SignInForm'; // Import the SignInForm component
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../../firebase/firebase';
+import LanguageContext from '../../contexts/LanguageContext/LanguageContext';
+
 
 const SummerCamp = () => {
   const [showRegisterModal, setShowRegisterModal] = useState(false);
@@ -11,6 +13,8 @@ const SummerCamp = () => {
   const [user, setUser] = useState(null);
   const [summerData, setSummerData] = useState(null)
   const navigate = useNavigate();
+  const { selectedLanguage } = useContext(LanguageContext);
+
   
   useEffect(() => {
     fetchSummerData();
@@ -25,15 +29,25 @@ const SummerCamp = () => {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [selectedLanguage]);
   
   const fetchSummerData = async () => {
-    try {
-      const response = await fetch('http://localhost:1337/api/summer-camp?populate=*');
-      const data = await response.json();
-      setSummerData(data.data.attributes);
-    } catch (error) {
-      console.error('Error fetching about data:', error);
+    if (selectedLanguage === "English") {
+      try {
+        const response = await fetch('http://localhost:1337/api/summer-camp?populate=*');
+        const data = await response.json();
+        setSummerData(data.data.attributes);
+      } catch (error) {
+        console.error('Error fetching about data:', error);
+      }
+    } else if (selectedLanguage === "French"){
+      try {
+        const response = await fetch('http://localhost:1337/api/summer-camp-french?populate=*');
+        const data = await response.json();
+        setSummerData(data.data.attributes);
+      } catch (error) {
+        console.error('Error fetching about data:', error);
+      }
     }
   };
 
@@ -75,7 +89,7 @@ const SummerCamp = () => {
         </div>
         
         <div className='content'>
-          <h2 style={{color: "#5a8375"}}>{summerData.registrationHeader}<br/> Jan 16th 2024</h2>
+          <h2 style={{color: "#5a8375"}}>{summerData.registrationHeader}<br/> {summerData.registrationHeaderDate}</h2>
           <button className='register-button' onClick={handleRegisterClick}>{summerData.registerButton1}</button>
           <div className='session'>
             <h2>{summerData.dateAndTimesTitle}</h2>

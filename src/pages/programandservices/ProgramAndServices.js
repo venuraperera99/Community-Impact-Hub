@@ -1,21 +1,33 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import "./ProgramAndServices.css";
+import LanguageContext from '../../contexts/LanguageContext/LanguageContext';
 
 
 const ProgramAndServices = () => {
     const [programs, setPrograms] = useState([]);
+    const { selectedLanguage } = useContext(LanguageContext);
 
     useEffect(() => {
         fetchPrograms();
-    }, []);
+    }, [selectedLanguage]);
 
     const fetchPrograms = async () => {
-        try {
-            const response = await fetch('http://localhost:1337/api/program-and-service?populate=*'); // Adjust URL to your Strapi endpoint
-            const data = await response.json();
-            setPrograms(data.data.attributes.CardInfo);
-        } catch (error) {
-            console.error('Error fetching programs:', error);
+        if(selectedLanguage === "English"){
+            try {
+                const response = await fetch('http://localhost:1337/api/program-and-service?populate=*'); // Adjust URL to your Strapi endpoint
+                const data = await response.json();
+                setPrograms(data.data.attributes.CardInfo);
+            } catch (error) {
+                console.error('Error fetching programs:', error);
+            }
+        } else if (selectedLanguage === "French"){
+            try {
+                const response = await fetch('http://localhost:1337/api/program-and-service-FRENCH?populate=*'); // Adjust URL to your Strapi endpoint
+                const data = await response.json();
+                setPrograms(data.data.attributes.CardInfo);
+            } catch (error) {
+                console.error('Error fetching programs:', error);
+            }
         }
     };
 
