@@ -89,8 +89,8 @@ async function sendInvoiceEmail(customerEmail, session, lineItems) {
     port: 465,
     secure: true,
     auth: {
-      user: 'venura.perera1999@gmail.com',
-      pass: 'oaub ntsn ooet lcvx'
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_PASS
     }
   });
 
@@ -182,8 +182,8 @@ app.post('/api/send-email', (req, res) => {
     port: 465,
     secure: true,
     auth: {
-      user: 'venura.perera1999@gmail.com',
-      pass: 'oaub ntsn ooet lcvx'
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_PASS
     }
   });
 
