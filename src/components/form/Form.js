@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import './Form.css';
@@ -13,6 +13,8 @@ import {
   DialogActions,
 } from '@mui/material';
 import { signUp } from '../../firebase/firebaseAuth'; // Import signUp function for user registration
+import LanguageContext from '../../contexts/LanguageContext/LanguageContext';
+
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -37,6 +39,35 @@ const validationSchema = Yup.object().shape({
 });
 
 const Form = ({ onClose, onBack }) => {
+  const [signUpData, setSignUpData] = useState(null);
+  const { selectedLanguage } = useContext(LanguageContext);
+
+  useEffect(() => {
+    fetchSignUpData();
+  }, [selectedLanguage]);
+
+  const fetchSignUpData = async () => {
+    if(selectedLanguage === "English"){
+      try {
+        const response = await fetch('http://localhost:1337/api/sign-up');
+        const data = await response.json();
+        setSignUpData(data.data.attributes);
+      } catch (error) {
+        console.error('Error fetching about data:', error);
+      }
+    } else if (selectedLanguage === "French"){
+      try {
+        const response = await fetch('http://localhost:1337/api/sign-up-french');
+        const data = await response.json();
+        setSignUpData(data.data.attributes);
+      } catch (error) {
+        console.error('Error fetching about data:', error);
+      }
+    }
+    
+  };
+
+
   const formik = useFormik({
     initialValues: {
       firstName: '',
@@ -73,109 +104,114 @@ const Form = ({ onClose, onBack }) => {
 
   return (
     <Dialog open={true} onClose={onClose}>
-      <div className='icon-container'>
-        <IoMdArrowBack className="icon" size={24} onClick={handleBackClick}/>
-        <IoClose className='icon close' size={24} onClick={handleClose}/>
-      </div>
-      <DialogTitle style={{ marginBottom: '10px' }}>Register Form</DialogTitle>
-      <DialogContent>
-        <form onSubmit={formik.handleSubmit} className="form">
-          <TextField
-            fullWidth
-            id="firstName"
-            name="firstName"
-            label="First Name"
-            value={formik.values.firstName}
-            onChange={formik.handleChange}
-            error={formik.touched.firstName && Boolean(formik.errors.firstName)}
-            helperText={formik.touched.firstName && formik.errors.firstName}
-            variant="outlined"
-            size="large"
-            className="form-field"
-          />
-          <TextField
-            fullWidth
-            id="lastName"
-            name="lastName"
-            label="Last Name"
-            value={formik.values.lastName}
-            onChange={formik.handleChange}
-            error={formik.touched.lastName && Boolean(formik.errors.lastName)}
-            helperText={formik.touched.lastName && formik.errors.lastName}
-            variant="outlined"
-            size="large"
-            className="form-field"
-          />
-          <TextField
-            fullWidth
-            id="birthday"
-            name="birthday"
-            label="Birthday"
-            type="date"
-            value={formik.values.birthday}
-            onChange={formik.handleChange}
-            error={formik.touched.birthday && Boolean(formik.errors.birthday)}
-            helperText={formik.touched.birthday && formik.errors.birthday}
-            variant="outlined"
-            size="large"
-            className="form-field"
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-          <TextField
-            fullWidth
-            id="phoneNumber"
-            name="phoneNumber"
-            label="Phone Number"
-            value={formik.values.phoneNumber}
-            onChange={formik.handleChange}
-            error={formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)}
-            helperText={formik.touched.phoneNumber && formik.errors.phoneNumber}
-            variant="outlined"
-            size="large"
-            className="form-field"
-          />
-          <TextField
-            fullWidth
-            id="email"
-            name="email"
-            label="Email"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            error={formik.touched.email && Boolean(formik.errors.email)}
-            helperText={
-              (formik.touched.email && formik.errors.email) ||
-              (!formik.errors.email && 'Enter a valid email address')
-            }
-            variant="outlined"
-            size="large"
-            className="form-field"
-          />
-          <TextField
-            fullWidth
-            id="password"
-            name="password"
-            label="Password"
-            type="password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password ? formik.errors.password : 'Password must be at least 6 characters'}
-            variant="outlined"
-            size="large"
-            className="form-field"
-          />
-          <DialogActions className="actions">
-            <Button style={{backgroundColor: "#5a8375"}} type="submit" variant="contained">
-              Submit
-            </Button>
-            <Button onClick={handleClose} color="primary">
-              Cancel
-            </Button>
-          </DialogActions>
-        </form>
-      </DialogContent>
+      {signUpData ?
+      <>
+        <div className='icon-container'>
+          <IoMdArrowBack className="icon" size={24} onClick={handleBackClick}/>
+          <IoClose className='icon close' size={24} onClick={handleClose}/>
+        </div>
+        <DialogTitle style={{ marginBottom: '10px' }}>{signUpData.formTitle}</DialogTitle>
+        <DialogContent>
+          <form onSubmit={formik.handleSubmit} className="form">
+            <TextField
+              fullWidth
+              id="firstName"
+              name="firstName"
+              label={signUpData.firstNamePlaceholder}
+              value={formik.values.firstName}
+              onChange={formik.handleChange}
+              error={formik.touched.firstName && Boolean(formik.errors.firstName)}
+              helperText={formik.touched.firstName && formik.errors.firstName}
+              variant="outlined"
+              size="large"
+              className="form-field"
+            />
+            <TextField
+              fullWidth
+              id="lastName"
+              name="lastName"
+              label={signUpData.lastNamePlaceHolder}
+              value={formik.values.lastName}
+              onChange={formik.handleChange}
+              error={formik.touched.lastName && Boolean(formik.errors.lastName)}
+              helperText={formik.touched.lastName && formik.errors.lastName}
+              variant="outlined"
+              size="large"
+              className="form-field"
+            />
+            <TextField
+              fullWidth
+              id="birthday"
+              name="birthday"
+              label="Birthday"
+              type="date"
+              value={formik.values.birthday}
+              onChange={formik.handleChange}
+              error={formik.touched.birthday && Boolean(formik.errors.birthday)}
+              helperText={formik.touched.birthday && formik.errors.birthday}
+              variant="outlined"
+              size="large"
+              className="form-field"
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+            <TextField
+              fullWidth
+              id="phoneNumber"
+              name="phoneNumber"
+              label={signUpData.phonePlaceholder}
+              value={formik.values.phoneNumber}
+              onChange={formik.handleChange}
+              error={formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)}
+              helperText={formik.touched.phoneNumber && formik.errors.phoneNumber}
+              variant="outlined"
+              size="large"
+              className="form-field"
+            />
+            <TextField
+              fullWidth
+              id="email"
+              name="email"
+              label={signUpData.emailPlaceholder}
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={
+                (formik.touched.email && formik.errors.email) ||
+                (!formik.errors.email && 'Enter a valid email address')
+              }
+              variant="outlined"
+              size="large"
+              className="form-field"
+            />
+            <TextField
+              fullWidth
+              id="password"
+              name="password"
+              label={signUpData.passwordPlaceholder}
+              type="password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password ? formik.errors.password : 'Password must be at least 6 characters'}
+              variant="outlined"
+              size="large"
+              className="form-field"
+            />
+            <DialogActions className="actions">
+              <Button style={{backgroundColor: "#5a8375"}} type="submit" variant="contained">
+              {signUpData.submitButton}
+              </Button>
+              <Button onClick={handleClose} color="primary">
+              {signUpData.cancelButton}
+              </Button>
+            </DialogActions>
+          </form>
+        </DialogContent>
+      </> : 
+      <p>Loading..</p>}
+      
     </Dialog>
   );
 };
