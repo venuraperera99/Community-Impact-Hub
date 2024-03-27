@@ -5,6 +5,7 @@ import LanguageContext from '../../contexts/LanguageContext/LanguageContext';
 
 const ProgramAndServices = () => {
     const [programs, setPrograms] = useState([]);
+    const [pageTitle, setPageTitle] = useState("")
     const { selectedLanguage } = useContext(LanguageContext);
 
     useEffect(() => {
@@ -17,6 +18,7 @@ const ProgramAndServices = () => {
                 const response = await fetch('http://localhost:1337/api/program-and-service?populate=*'); // Adjust URL to your Strapi endpoint
                 const data = await response.json();
                 setPrograms(data.data.attributes.CardInfo);
+                setPageTitle(data.data.attributes.pageTitle)
             } catch (error) {
                 console.error('Error fetching programs:', error);
             }
@@ -25,6 +27,7 @@ const ProgramAndServices = () => {
                 const response = await fetch('http://localhost:1337/api/program-and-service-FRENCH?populate=*'); // Adjust URL to your Strapi endpoint
                 const data = await response.json();
                 setPrograms(data.data.attributes.CardInfo);
+                setPageTitle(data.data.attributes.pageTitle)
             } catch (error) {
                 console.error('Error fetching programs:', error);
             }
@@ -39,11 +42,11 @@ const ProgramAndServices = () => {
 
     return (
         <div className='outer-program'>
-            <div className='content'>
-                <h1>Programs & Services</h1>
-            </div>
             {programs ? 
             <>
+                <div className='content'>
+                    <h1>aaa{pageTitle}</h1>
+                </div>
                 <div className="card-container">
                     {programs.map((program, index) => (
                     <div
