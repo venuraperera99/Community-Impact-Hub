@@ -5,14 +5,16 @@ import { FaUser } from 'react-icons/fa';
 import Image from "../../images/Logo.png";
 import LanguagePicker from '../languagepicker/LanguagePicker';
 import LanguageContext from '../../contexts/LanguageContext/LanguageContext';
+import {UserContext} from '../../contexts/UserContext/UserContext'
 
 export const Header = () => {
   const [headerData, setHeaderData] = useState(null);
   const { selectedLanguage } = useContext(LanguageContext);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     fetchHeaderData();
-  }, [selectedLanguage]);
+  }, [selectedLanguage, user]);
 
   const fetchHeaderData = async () => {
     if(selectedLanguage === "English"){
@@ -54,7 +56,11 @@ export const Header = () => {
 
           <nav >
             <ul>
-              <li><FaUser size={24} color={'black'} />{headerData.signIn}</li>
+            {user ? (
+                <li><FaUser size={24} color={'black'} />{user.email}</li>
+              ) : (
+                <li><FaUser size={24} color={'black'} />{headerData.signIn}</li>
+              )}
               <li><LanguagePicker/></li>
             </ul>
           </nav>

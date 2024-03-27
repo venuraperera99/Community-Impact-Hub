@@ -5,30 +5,20 @@ import SignInForm from '../../components/form/SignInForm'; // Import the SignInF
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../../firebase/firebase';
 import LanguageContext from '../../contexts/LanguageContext/LanguageContext';
-
+import {UserContext} from '../../contexts/UserContext/UserContext'
 
 const SummerCamp = () => {
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showSignInModal, setShowSignInModal] = useState(false);
-  const [user, setUser] = useState(null);
+  //const [user, setUser] = useState(null);
   const [summerData, setSummerData] = useState(null)
   const navigate = useNavigate();
   const { selectedLanguage } = useContext(LanguageContext);
-
+  const { user } = useContext(UserContext);
   
   useEffect(() => {
     fetchSummerData();
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        // User is signed in
-        setUser(user);
-      } else {
-        // No user is signed in
-        setUser(null);
-      }
-    });
-
-    return () => unsubscribe();
+    
   }, [selectedLanguage]);
   
   const fetchSummerData = async () => {
@@ -68,9 +58,7 @@ const SummerCamp = () => {
   };
 
   const handleRegisterClick = () => {
-    const currentUser = auth.currentUser;
-    console.log(user)
-    if (currentUser) {
+    if (user) {
       // User is logged in, redirect to child registration page
       navigate('/child-registration');
     } else {

@@ -14,6 +14,7 @@ import {
 import { IoClose } from "react-icons/io5";
 import { signIn } from '../../firebase/firebaseAuth'; // Import signIn function for user sign-in
 import LanguageContext from '../../contexts/LanguageContext/LanguageContext';
+import {UserContext} from '../../contexts/UserContext/UserContext'
 
 
 const validationSchema = Yup.object().shape({
@@ -29,6 +30,7 @@ const SignInForm = ({ onClose, onSignUp }) => {
   const [signInError, setSignInError] = useState(null);
   const [signInData, setSignInData] = useState(null);
   const { selectedLanguage } = useContext(LanguageContext);
+  const { setUser } = useContext(UserContext);
 
   useEffect(() => {
     fetchSignInData();
@@ -63,7 +65,7 @@ const SignInForm = ({ onClose, onSignUp }) => {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
-        await signIn(values.email, values.password);
+        await signIn(values.email, values.password, setUser);
         onClose(); 
       } catch (error) {
         console.error('Sign In Error:', error.message);

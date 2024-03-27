@@ -10,9 +10,10 @@ export const signUp = async (email, password) => {
   }
 };
 
-export const signIn = async (email, password) => {
+export const signIn = async (email, password, setUser) => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    setUser(userCredential.user)
     return userCredential.user;
   } catch (error) {
     throw error;
