@@ -25,7 +25,7 @@ const Footer = () => {
         }
       } else if (selectedLanguage === "French") {
         try {
-          const response = await fetch('http://localhost:1337/api/footer-french?populate=*');
+          const response = await fetch('http://localhost:1337/api/footer-french?populate=deep');
           const data = await response.json();
           setFooterData(data.data.attributes);
         } catch (error) {
