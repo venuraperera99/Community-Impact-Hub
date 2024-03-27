@@ -1,5 +1,5 @@
-import React, {useState, useEffect, useContext} from 'react';
-import { Link, useNavigate } from 'react-router-dom'; 
+import React, { useState, useEffect, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './Header.css';
 import { FaUser } from 'react-icons/fa';
 import Image from "../../images/Logo.png";
@@ -9,7 +9,6 @@ import { UserContext } from '../../contexts/UserContext/UserContext'
 import { signOutUser } from '../../firebase/firebaseAuth';
 import Form from '../form/Form';
 import SignInForm from '../form/SignInForm';
-
 
 export const Header = () => {
   const [headerData, setHeaderData] = useState(null);
@@ -40,7 +39,7 @@ export const Header = () => {
   }, [selectedLanguage, user]);
 
   const fetchHeaderData = async () => {
-    if(selectedLanguage === "English"){
+    if (selectedLanguage === "English") {
       try {
         const response = await fetch('http://localhost:1337/api/header');
         const data = await response.json();
@@ -48,7 +47,7 @@ export const Header = () => {
       } catch (error) {
         console.error('Error fetching about data:', error);
       }
-    } else if (selectedLanguage === "French"){
+    } else if (selectedLanguage === "French") {
       try {
         const response = await fetch('http://localhost:1337/api/header-french');
         const data = await response.json();
@@ -57,7 +56,6 @@ export const Header = () => {
         console.error('Error fetching about data:', error);
       }
     }
-    
   };
 
   const handleLogout = async () => {
@@ -81,37 +79,38 @@ export const Header = () => {
 
   return (
     <div className="header-container">
-        <img src={Image} alt="Community Impact Hub" style={{  width: '200px', height: 'auto%' }} />
-        {headerData ? 
+      <img src={Image} alt="Community Impact Hub" style={{ width: '200px', height: 'auto%' }} />
+      {headerData ?
         <>
           <nav>
             <ul className="header-tabs">
-              <li><Link to="/">{headerData.headerLink1}</Link></li>
-              <li><Link to="/about">{headerData.headerLink2}</Link></li>
-              <li><Link to="/resources">{headerData.headerLink3}</Link></li>
-              <li><Link to="/programs">{headerData.headerLink4}</Link></li>
-              <li><Link to="/register">{headerData.headerLink5}</Link></li>
-              <li><Link to="/contact">{headerData.headerLink6}</Link></li>
-              <li><Link to="/summercamp">{headerData.headerLink7}</Link></li>
+              <li><Link to="/" className="header-link">{headerData.headerLink1}</Link></li>
+              <li><Link to="/about" className="header-link">{headerData.headerLink2}</Link></li>
+              <li><Link to="/resources" className="header-link">{headerData.headerLink3}</Link></li>
+              <li><Link to="/programs" className="header-link">{headerData.headerLink4}</Link></li>
+              <li><Link to="/register" className="header-link">{headerData.headerLink5}</Link></li>
+              <li><Link to="/contact" className="header-link">{headerData.headerLink6}</Link></li>
+              <li><Link to="/summercamp" className="header-link">{headerData.headerLink7}</Link></li>
             </ul>
           </nav>
 
-          <nav >
+          <nav>
             <ul>
-            {user ? <>
-                <li><FaUser size={24} color={'black'} />{user.email}</li>
-                <li><button onClick={handleLogout}>Logout</button></li>
+              {user ? <>
+                <li>{user.email}</li>
+                <li><button onClick={handleLogout} className="header-button">Logout</button></li>
               </> : (
-                <li><FaUser size={24} color={'black'} /><button onClick={handleSignIn}>{headerData.signIn}</button></li>
+                <li><button onClick={handleSignIn} className="header-button">{headerData.signIn}</button></li>
               )}
-              <li><LanguagePicker/></li>
+              <li><LanguagePicker /></li>
             </ul>
           </nav>
-          {showRegisterModal && <Form onClose={closeRegisterModal} onBack={openSignInModal}/>}
-          {showSignInModal && <SignInForm onClose={closeSignInModal} onSignUp={openRegisterModal}/>}
-        </> : 
+          {showRegisterModal && <Form onClose={closeRegisterModal} onBack={openSignInModal} />}
+          {showSignInModal && <SignInForm onClose={closeSignInModal} onSignUp={openRegisterModal} />}
+        </> :
         <p>Loading...</p>}
-      
     </div>
   );
 };
+
+export default Header;
