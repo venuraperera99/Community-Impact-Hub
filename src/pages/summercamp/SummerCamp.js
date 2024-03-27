@@ -3,14 +3,12 @@ import './SummerCamp.css';
 import Form from '../../components/form/Form';
 import SignInForm from '../../components/form/SignInForm'; // Import the SignInForm component
 import { useNavigate } from 'react-router-dom';
-import { auth } from '../../firebase/firebase';
 import LanguageContext from '../../contexts/LanguageContext/LanguageContext';
 import {UserContext} from '../../contexts/UserContext/UserContext'
 
 const SummerCamp = () => {
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showSignInModal, setShowSignInModal] = useState(false);
-  //const [user, setUser] = useState(null);
   const [summerData, setSummerData] = useState(null)
   const navigate = useNavigate();
   const { selectedLanguage } = useContext(LanguageContext);

@@ -1,16 +1,39 @@
 import React, {useState, useEffect, useContext} from 'react';
-import { Link } from 'react-router-dom'; 
+import { Link, useNavigate } from 'react-router-dom'; 
 import './Header.css';
 import { FaUser } from 'react-icons/fa';
 import Image from "../../images/Logo.png";
 import LanguagePicker from '../languagepicker/LanguagePicker';
 import LanguageContext from '../../contexts/LanguageContext/LanguageContext';
-import {UserContext} from '../../contexts/UserContext/UserContext'
+import { UserContext } from '../../contexts/UserContext/UserContext'
+import { signOutUser } from '../../firebase/firebaseAuth';
+import Form from '../form/Form';
+import SignInForm from '../form/SignInForm';
+
 
 export const Header = () => {
   const [headerData, setHeaderData] = useState(null);
   const { selectedLanguage } = useContext(LanguageContext);
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const [showSignInModal, setShowSignInModal] = useState(false);
+
+  const openRegisterModal = () => {
+    setShowRegisterModal(true);
+  };
+
+  const closeRegisterModal = () => {
+    setShowRegisterModal(false);
+  };
+
+  const openSignInModal = () => {
+    setShowSignInModal(true);
+  };
+
+  const closeSignInModal = () => {
+    setShowSignInModal(false);
+  };
 
   useEffect(() => {
     fetchHeaderData();
@@ -37,6 +60,25 @@ export const Header = () => {
     
   };
 
+  const handleLogout = async () => {
+    try {
+      await signOutUser();
+      setUser(null); // Update the user context to clear the user
+    } catch (error) {
+      console.error('Logout Error:', error);
+    }
+  };
+
+  const handleSignIn = async () => {
+    if (user) {
+      // User is logged in, redirect to child registration page
+      navigate('/child-registration');
+    } else {
+      // User is not logged in, open sign in modal
+      openSignInModal();
+    }
+  }
+
   return (
     <div className="header-container">
         <img src={Image} alt="Community Impact Hub" style={{  width: '200px', height: 'auto%' }} />
@@ -56,14 +98,17 @@ export const Header = () => {
 
           <nav >
             <ul>
-            {user ? (
+            {user ? <>
                 <li><FaUser size={24} color={'black'} />{user.email}</li>
-              ) : (
-                <li><FaUser size={24} color={'black'} />{headerData.signIn}</li>
+                <li><button onClick={handleLogout}>Logout</button></li>
+              </> : (
+                <li><FaUser size={24} color={'black'} /><button onClick={handleSignIn}>{headerData.signIn}</button></li>
               )}
               <li><LanguagePicker/></li>
             </ul>
           </nav>
+          {showRegisterModal && <Form onClose={closeRegisterModal} onBack={openSignInModal}/>}
+          {showSignInModal && <SignInForm onClose={closeSignInModal} onSignUp={openRegisterModal}/>}
         </> : 
         <p>Loading...</p>}
       
