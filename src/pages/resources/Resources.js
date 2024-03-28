@@ -16,14 +16,13 @@ const Resources = () => {
       try {
         const response = await fetch('http://localhost:1337/api/resource?populate=deep');
         const data = await response.json();
-        console.log(data.data.attributes)
         setResourceData(data.data.attributes);
       } catch (error) {
         console.error('Error fetching about data:', error);
       }
     } else if (selectedLanguage === "French"){
       try {
-        const response = await fetch('http://localhost:1337/api/about-page-french');
+        const response = await fetch('http://localhost:1337/api/resource-french?populate=deep');
         const data = await response.json();
         setResourceData(data.data.attributes);
       } catch (error) {
@@ -39,11 +38,11 @@ const Resources = () => {
         <div className='resources-container'>
           <h1 className='resources-title'>{resourceData.formTitle}</h1>
           {resourceData.ResourceGroup.map((resource, index) => (
-            <div className='resources-page-section'>
+            <div key={index} className='resources-page-section'>
               <h2 className='resources-subtitle'>{resource.groupTitle}</h2>
               <ul className='resources-list'>
-                {resource.ResourceLink.map((resourcelink, index) => (
-                  <li className='resources-item'>
+                {resource.ResourceLink.map((resourcelink, index2) => (
+                  <li key={index2} className='resources-item'>
                     <a href={resourcelink.link} target='_blank' rel='noopener noreferrer'>{resourcelink.linkName}</a>
                   </li>
                 ))}
