@@ -18,7 +18,7 @@ const Resources = () => {
         const data = await response.json();
         setResourceData(data.data.attributes);
       } catch (error) {
-        console.error('Error fetching about data:', error);
+        console.error('Error fetching resources data:', error);
       }
     } else if (selectedLanguage === "French"){
       try {
@@ -26,7 +26,7 @@ const Resources = () => {
         const data = await response.json();
         setResourceData(data.data.attributes);
       } catch (error) {
-        console.error('Error fetching about data:', error);
+        console.error('Error fetching resources data:', error);
       }
     }
     

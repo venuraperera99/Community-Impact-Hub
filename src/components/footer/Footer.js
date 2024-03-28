@@ -21,7 +21,7 @@ const Footer = () => {
           const data = await response.json();
           setFooterData(data.data.attributes);
         } catch (error) {
-          console.error('Error fetching about data:', error);
+          console.error('Error fetching footer data:', error);
         }
       } else if (selectedLanguage === "French") {
         try {
@@ -29,7 +29,7 @@ const Footer = () => {
           const data = await response.json();
           setFooterData(data.data.attributes);
         } catch (error) {
-          console.error('Error fetching about data:', error);
+          console.error('Error fetching footer data:', error);
         }
       }
     };

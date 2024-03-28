@@ -18,7 +18,7 @@ export const PageNotFound = () => {
         const data = await response.json();
         setPageNotFoundData(data.data.attributes);
       } catch (error) {
-        console.error('Error fetching about data:', error);
+        console.error('Error fetching pagenotfound data:', error);
       }
     } else if (selectedLanguage === "French"){
       try {
@@ -26,7 +26,7 @@ export const PageNotFound = () => {
         const data = await response.json();
         setPageNotFoundData(data.data.attributes);
       } catch (error) {
-        console.error('Error fetching about data:', error);
+        console.error('Error fetching pagenotfound data:', error);
       }
     }
     

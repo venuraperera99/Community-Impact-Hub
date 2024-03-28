@@ -21,7 +21,7 @@ const Home = () => {
         const data = await response.json();
         setHomeData(data.data.attributes);
       } catch (error) {
-        console.error('Error fetching about data:', error);
+        console.error('Error fetching home data:', error);
       }
     } else if (selectedLanguage === "French") {
       try {
@@ -29,7 +29,7 @@ const Home = () => {
         const data = await response.json();
         setHomeData(data.data.attributes);
       } catch (error) {
-        console.error('Error fetching about data:', error);
+        console.error('Error fetching home data:', error);
       }
     }
     

@@ -31,7 +31,7 @@ const ChildRegistration = () => {
         const data = await response.json();
         setChildRegistrationData(data.data.attributes);
       } catch (error) {
-        console.error('Error fetching about data:', error);
+        console.error('Error fetching childregistration data:', error);
       }
     } else if (selectedLanguage === "French"){
       try {
@@ -39,7 +39,7 @@ const ChildRegistration = () => {
         const data = await response.json();
         setChildRegistrationData(data.data.attributes);
       } catch (error) {
-        console.error('Error fetching about data:', error);
+        console.error('Error fetching childregistration data:', error);
       }
     }
     

@@ -21,7 +21,7 @@ const Contact = () => {
         const data = await response.json();
         setContactData(data.data.attributes);
       } catch (error) {
-        console.error('Error fetching about data:', error);
+        console.error('Error fetching contact data:', error);
       }
     } else if (selectedLanguage === "French"){
       try {
@@ -29,7 +29,7 @@ const Contact = () => {
         const data = await response.json();
         setContactData(data.data.attributes);
       } catch (error) {
-        console.error('Error fetching about data:', error);
+        console.error('Error fetching contact data:', error);
       }
     }
     

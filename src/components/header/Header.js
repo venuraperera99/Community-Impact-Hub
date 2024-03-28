@@ -45,7 +45,7 @@ export const Header = () => {
         const data = await response.json();
         setHeaderData(data.data.attributes);
       } catch (error) {
-        console.error('Error fetching about data:', error);
+        console.error('Error fetching header data:', error);
       }
     } else if (selectedLanguage === "French") {
       try {
@@ -53,7 +53,7 @@ export const Header = () => {
         const data = await response.json();
         setHeaderData(data.data.attributes);
       } catch (error) {
-        console.error('Error fetching about data:', error);
+        console.error('Error fetching header data:', error);
       }
     }
   };

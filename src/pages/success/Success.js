@@ -17,7 +17,7 @@ const Success = () => {
         const data = await response.json();
         setSuccessData(data.data.attributes);
       } catch (error) {
-        console.error('Error fetching about data:', error);
+        console.error('Error fetching success data:', error);
       }
     } else if (selectedLanguage === "French"){
       try {
@@ -25,7 +25,7 @@ const Success = () => {
         const data = await response.json();
         setSuccessData(data.data.attributes);
       } catch (error) {
-        console.error('Error fetching about data:', error);
+        console.error('Error fetching success data:', error);
       }
     }
     

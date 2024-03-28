@@ -53,7 +53,7 @@ const Form = ({ onClose, onBack }) => {
         const data = await response.json();
         setSignUpData(data.data.attributes);
       } catch (error) {
-        console.error('Error fetching about data:', error);
+        console.error('Error fetching form data:', error);
       }
     } else if (selectedLanguage === "French"){
       try {
@@ -61,7 +61,7 @@ const Form = ({ onClose, onBack }) => {
         const data = await response.json();
         setSignUpData(data.data.attributes);
       } catch (error) {
-        console.error('Error fetching about data:', error);
+        console.error('Error fetching form data:', error);
       }
     }
     

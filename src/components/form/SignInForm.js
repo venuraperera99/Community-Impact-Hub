@@ -43,7 +43,7 @@ const SignInForm = ({ onClose, onSignUp }) => {
         const data = await response.json();
         setSignInData(data.data.attributes);
       } catch (error) {
-        console.error('Error fetching about data:', error);
+        console.error('Error fetching signin data:', error);
       }
     } else if (selectedLanguage === "French"){
       try {
@@ -51,7 +51,7 @@ const SignInForm = ({ onClose, onSignUp }) => {
         const data = await response.json();
         setSignInData(data.data.attributes);
       } catch (error) {
-        console.error('Error fetching about data:', error);
+        console.error('Error fetching signin data:', error);
       }
     }
     

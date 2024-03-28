@@ -26,7 +26,7 @@ const SummerCamp = () => {
         const data = await response.json();
         setSummerData(data.data.attributes);
       } catch (error) {
-        console.error('Error fetching about data:', error);
+        console.error('Error fetching summer camp data:', error);
       }
     } else if (selectedLanguage === "French"){
       try {
@@ -34,7 +34,7 @@ const SummerCamp = () => {
         const data = await response.json();
         setSummerData(data.data.attributes);
       } catch (error) {
-        console.error('Error fetching about data:', error);
+        console.error('Error fetching summer camp data:', error);
       }
     }
   };
