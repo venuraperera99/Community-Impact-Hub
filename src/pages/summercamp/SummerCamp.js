@@ -81,7 +81,7 @@ const SummerCamp = () => {
             <h2>{summerData.dateAndTimesTitle}</h2>
             <div className='session-list'>
               {summerData.SessionDates.map((session, index) => (
-                <div>Session {index+1}: {session.weekstart} - {session.weekend}</div>
+                <div key={index}>Session {index+1}: {session.weekstart} - {session.weekend}</div>
               ))}
             </div>
           </div>
@@ -114,7 +114,7 @@ const SummerCamp = () => {
             <h2>{summerData.paragraphTitle4}</h2>
             <div className='bring-list'>
               {summerData.paragraphText4.map((listitem, index) => (
-                <div>{listitem.children[0].text}</div>
+                <div key={index}>{listitem.children[0].text}</div>
               ))}
             </div>
           </div>
