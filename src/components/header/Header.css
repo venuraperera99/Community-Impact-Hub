@@ -66,6 +66,11 @@ nav ul.header-tabs li {
   color: green; /* Hover color */
 }
 
+.user-email {
+  color: black;
+  font-weight: bold;
+}
+
 .header-button {
   background-color: transparent;
   color: #5a8375;
