@@ -13,8 +13,10 @@ export const signUp = async (email, password) => {
 export const signIn = async (email, password, setUser) => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    setUser(userCredential.user)
-    return userCredential.user;
+    const user = userCredential.user;
+    localStorage.setItem('user', JSON.stringify(user));
+    setUser(user)
+    return user;
   } catch (error) {
     throw error;
   }
@@ -23,6 +25,7 @@ export const signIn = async (email, password, setUser) => {
 export const signOutUser = async () => {
   try {
     await signOut(auth);
+    localStorage.removeItem('user');
   } catch (error) {
     throw error;
   }

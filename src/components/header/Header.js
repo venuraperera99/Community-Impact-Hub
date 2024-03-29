@@ -38,6 +38,17 @@ export const Header = () => {
     fetchHeaderData();
   }, [selectedLanguage, user]);
 
+  useEffect(() => {
+    checkLocalStorageUser();
+  }, []);
+
+  const checkLocalStorageUser = () => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  };
+
   const fetchHeaderData = async () => {
     if (selectedLanguage === "English") {
       try {
@@ -97,7 +108,7 @@ export const Header = () => {
           <nav>
             <ul>
               {user ? <>
-                <li>{user.email}</li>
+                <li className='user-email'>{user.email}</li>
                 <li><button onClick={handleLogout} className="header-button">Logout</button></li>
               </> : (
                 <li><button onClick={handleSignIn} className="header-button">{headerData.signIn}</button></li>

@@ -45,7 +45,7 @@ const ProgramAndServices = () => {
             {programs ? 
             <>
                 <div className='content'>
-                    <h1>aaa{pageTitle}</h1>
+                    <h1>{pageTitle}</h1>
                 </div>
                 <div className="card-container">
                     {programs.map((program, index) => (
