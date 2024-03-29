@@ -45,7 +45,7 @@ app.post('/create-checkout-session', async (req, res) => {
       automatic_tax: {
         enabled: true,
       },
-      success_url: `${process.env.STRIPE_PRIVATE_KEY}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${process.env.CLIENT_URL}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.CLIENT_URL}/child-registration`,
 
     })
