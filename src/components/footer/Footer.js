@@ -58,9 +58,8 @@ const Footer = () => {
                 <li><Link to="/">{footerData.LinksColumn[0].Link[0].link}</Link></li>
                 <li><Link to="/resources">{footerData.LinksColumn[0].Link[1].link}</Link></li>
                 <li><Link to="/programs">{footerData.LinksColumn[0].Link[2].link}</Link></li>
-                <li><Link to="/register">{footerData.LinksColumn[0].Link[3].link}</Link></li>
-                <li><Link to="/contact">{footerData.LinksColumn[0].Link[4].link}</Link></li>
-                <li><Link to="/summercamp">{footerData.LinksColumn[0].Link[5].link}</Link></li>
+                <li><Link to="/contact">{footerData.LinksColumn[0].Link[3].link}</Link></li>
+                <li><Link to="/summercamp">{footerData.LinksColumn[0].Link[4].link}</Link></li>
             </div>
             <div className="links-column">
               <h5>{footerData.LinksColumn[1].LinksColumnHeader}</h5>

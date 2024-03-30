@@ -9,7 +9,6 @@ import Contact from './pages/contact/Contact';
 import ProgramAndServices from './pages/programandservices/ProgramAndServices';
 import SummerCamp from './pages/summercamp/SummerCamp';
 import ChildRegistration from './pages/childregistration/ChildRegistration';
-import Register from './pages/register/Register';
 import { PageNotFound } from './pages/404/PageNotFound';
 import Success from './pages/success/Success';
 import Resources from './pages/resources/Resources';
@@ -25,7 +24,6 @@ function App() {
         <Route path="/programs" element={<ProgramAndServices/>}/>
         <Route path="/summercamp" element={<SummerCamp/>}/>
         <Route path="/child-registration" element={<ChildRegistration />} />
-        <Route path="/register" element={<Register />} />
         <Route path="/payment-success" element={<Success/>} />
         <Route path="/resources" element={<Resources/>} />
         <Route path="*" element={<PageNotFound/>} />
