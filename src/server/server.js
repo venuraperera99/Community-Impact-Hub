@@ -1,7 +1,8 @@
-const dotenv = require('dotenv');
+const dotenv = require('dotenv').config();
 const path = require('path');
-const envPath = path.resolve(__dirname, '../../.env');
-dotenv.config({ path: envPath });
+//const envPath = path.resolve(__dirname, '../../.env');
+//dotenv.config({ path: envPath });
+console.log('Loaded PORT:', process.env.PORT);
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -13,6 +14,10 @@ app.use(bodyParser.json());
 app.use(cors()); 
 
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY)
+const { body, validationResult } = require('express-validator');
+// Twilio SendGrid
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const storeItems = new Map([
   [1, { priceInCents: 19900, name: "Week 1"}],
@@ -59,19 +64,21 @@ app.post('/create-checkout-session', async (req, res) => {
 // This is the success route where Stripe will redirect after successful payment
 app.get('/payment-success', async (req, res) => {
   const { session_id } = req.query;
-  console.log(req)
+  
   try {
     // Retrieve the session to get payment details
     const session = await stripe.checkout.sessions.retrieve(session_id);
+    
     // Get the items the customer purchased
-    const lineItems = await stripe.checkout.sessions.listLineItems(session_id)
-    console.log(lineItems)
+    const lineItems = await stripe.checkout.sessions.listLineItems(session_id);
+
     // Get the customer email from the session
     const customer_email = session.customer_details.email;
-    console.log("hi")
-    //console.log(customer_email, session)
+    console.log(session)
+    console.log(lineItems)
+    console.log(customer_email)
     // Send invoice email
-    await sendInvoiceEmail(customer_email, session, lineItems);
+    await sendInvoiceEmail(customer_email, session, lineItems.data);
 
     res.send('Invoice email sent successfully!');
   } catch (error) {
@@ -82,27 +89,15 @@ app.get('/payment-success', async (req, res) => {
 
 // Function to send invoice email
 async function sendInvoiceEmail(customerEmail, session, lineItems) {
-  // Create a Nodemailer transporter
-  //console.log(customerEmail, session)
-  let transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
-    auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_PASS
-    }
-  });
+  const lineItemsHTML = lineItems.map(item => {
+    return `<li>${item.quantity} x ${item.description} - ${formatCurrency(item.amount_total, session.currency)}</li>`;
+  }).join('');
 
-  // Create the line items list
-  let lineItemsHTML = '';
-  lineItems.data.forEach(item => {
-    lineItemsHTML += `<li>${item.quantity} x ${item.description} - ${formatCurrency(item.amount_total, session.currency)}</li>`;
-  });
-
-  // Setup email data
-  let mailOptions = {
-    from: 'acex2000@gmail.com',
+  const mailOptions = {
+    from: {
+      email: process.env.SENDGRID_SENDER_EMAIL,
+      name: 'Community Impact Hub'
+    },
     to: customerEmail,
     subject: 'Invoice for Your Purchase',
     html: `
@@ -115,10 +110,13 @@ async function sendInvoiceEmail(customerEmail, session, lineItems) {
       <p>Payment Status: ${session.payment_status}</p>
     `
   };
-  console.log("heelo")
-  // Send the email
-  let info = await transporter.sendMail(mailOptions);
-  console.log('Invoice email sent:', info.response);
+
+  try {
+    await sgMail.send(mailOptions);
+    console.log('Invoice email sent successfully');
+  } catch (error) {
+    console.error('Error sending invoice email:', error.toString());
+  }
 }
 
 // Helper function to format currency
@@ -126,7 +124,6 @@ function formatCurrency(amount, currency) {
   if (currency.toUpperCase() === 'CAD') {
     return new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD' }).format(amount / 100);
   } else {
-    // Default to en-US for other currencies
     return new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(amount / 100);
   }
 }
@@ -174,7 +171,7 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
 });
 
 // POST endpoint to send email
-app.post('/api/send-email', (req, res) => {
+/*app.post('/api/send-emaill', (req, res) => {
   const { fullName, email, phoneNumber, message } = req.body;
   // Create a Nodemailer transporter
   let transporter = nodemailer.createTransport({
@@ -210,6 +207,53 @@ app.post('/api/send-email', (req, res) => {
       res.status(200).send('Email sent');
     }
   });
+});
+*/
+const { body, validationResult } = require('express-validator');
+
+// Twilio SendGrid
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+// POST endpoint to send email
+app.post('/api/send-email', [
+  body('fullName').notEmpty(),
+  body('email').isEmail(),
+  body('phoneNumber').notEmpty(),
+  body('message').notEmpty()
+], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { fullName, email, phoneNumber, message } = req.body;
+
+  const msg = {
+    to: process.env.SENDGRID_SENDER_EMAIL,
+    from: {
+      email: process.env.SENDGRID_SENDER_EMAIL,
+      name: 'CONTACT US FORM SUBMISSION',
+    },
+    subject: 'New Contact Form Submission',
+    html: `
+      <h3>Contact Details:</h3>
+      <p><strong>Name:</strong> ${fullName}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Phone Number:</strong> ${phoneNumber}</p>
+      <p><strong>Message:</strong></p>
+      <p>${message}</p>
+    `,
+  };
+
+  try {
+    await sgMail.send(msg);
+    console.log('Email sent successfully');
+    res.status(200).json({ message: 'Email sent successfully' });
+  } catch (error) {
+    console.error('Error sending email:', error.toString());
+    res.status(500).json({ error: 'Error sending email' });
+  }
 });
 
 const PORT = process.env.PORT || 5000;
