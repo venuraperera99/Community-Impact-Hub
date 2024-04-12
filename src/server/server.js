@@ -2,11 +2,10 @@ const dotenv = require('dotenv').config();
 const path = require('path');
 //const envPath = path.resolve(__dirname, '../../.env');
 //dotenv.config({ path: envPath });
-console.log('Loaded PORT:', process.env.PORT);
+const mysql = require('mysql'); // Import the MySQL package
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const nodemailer = require('nodemailer');
 const cors = require('cors'); 
 const app = express();
 
@@ -14,10 +13,7 @@ app.use(bodyParser.json());
 app.use(cors()); 
 
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY)
-const { body, validationResult } = require('express-validator');
-// Twilio SendGrid
-const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
 
 const storeItems = new Map([
   [1, { priceInCents: 19900, name: "Week 1"}],
@@ -170,45 +166,68 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
   }
 });
 
-// POST endpoint to send email
-/*app.post('/api/send-emaill', (req, res) => {
-  const { fullName, email, phoneNumber, message } = req.body;
-  // Create a Nodemailer transporter
-  let transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
-    auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_PASS
-    }
-  });
 
-  // Setup email data
-  let mailOptions = {
-    from: 'acex2000@gmail.com',
-    to: 'venura.perera1999@gmail.com',
-    subject: 'New Contact Form Submission',
-    text: `
-      Full Name: ${fullName}
-      Email: ${email}
-      Phone Number: ${phoneNumber}
-      Message: ${message}
-    `
-  };
 
-  // Send the email
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error('Error sending email:', error);
-      res.status(500).send('Error sending email');
-    } else {
-      console.log('Email sent: ' + info.response);
-      res.status(200).send('Email sent');
+// MySQL Connection
+const db = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'root1',
+  database: 'your_database_name',
+});
+
+// Connect to MySQL
+db.connect((err) => {
+  if (err) {
+    console.error('Error connecting to MySQL:', err);
+    return;
+  }
+  console.log('Connected to MySQL database!');
+});
+
+// Route to add data to MySQL
+app.post('/api/add-data', (req, res) => {
+  const {
+    childName,
+    age,
+    parentName,
+    email,
+    phone,
+    selectedWeeks,
+    emergencyContact,
+    emergencyContactNumber,
+  } = req.body;
+
+  const insertQuery = `
+    INSERT INTO child_registrations 
+    (childName, age, parentName, email, phone, selectedWeeks, emergencyContact, emergencyContactNumber) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+  `;
+
+  const values = [
+    childName,
+    age,
+    parentName,
+    email,
+    phone,
+    JSON.stringify(selectedWeeks), // Convert to JSON string before storing in TEXT field
+    emergencyContact,
+    emergencyContactNumber,
+  ];
+
+  db.query(insertQuery, values, (err, result) => {
+    if (err) {
+      console.error('Error inserting data into MySQL:', err);
+      res.status(500).json({ error: 'Error inserting data into MySQL' });
+      return;
     }
+    console.log('Data inserted into MySQL successfully!');
+    res.status(200).json({ message: 'Data inserted into MySQL successfully' });
   });
 });
-*/
+
+
+
 const { body, validationResult } = require('express-validator');
 
 // Twilio SendGrid

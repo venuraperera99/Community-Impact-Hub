@@ -130,6 +130,34 @@ const ChildRegistration = () => {
       }).catch(e => {
         console.error(e.error)
       })
+
+
+      // Prepare data to send to the server
+    const data2 = {
+        ...values,
+        selectedWeeks: selectedWeeks, // Include selected weeks
+      };
+
+      // Send data to server
+      fetch("http://localhost:5000/api/add-data", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data2)
+      })
+      .then(res => {
+        if (res.ok) return res.json();
+        return res.json().then(json => Promise.reject(json));
+      })
+      .then(response => {
+        console.log('Data successfully sent to server:', response);
+        // Handle success as needed, e.g., show success message
+      })
+      .catch(error => {
+        console.error('Error sending data to server:', error);
+        // Handle error as needed, e.g., show error message
+      });
       
       // Reset selected weeks after submission (you can adjust this behavior as needed)
       setSelectedWeeks([]);
