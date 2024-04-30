@@ -2,8 +2,8 @@ const dotenv = require('dotenv').config();
 const path = require('path');
 //const envPath = path.resolve(__dirname, '../../.env');
 //dotenv.config({ path: envPath });
-const mysql = require('mysql'); // Import the MySQL package
-
+const mysql = require('mysql');
+const nodemailer = require('nodemailer');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors'); 
@@ -70,9 +70,7 @@ app.get('/payment-success', async (req, res) => {
 
     // Get the customer email from the session
     const customer_email = session.customer_details.email;
-    console.log(session)
-    console.log(lineItems)
-    console.log(customer_email)
+
     // Send invoice email
     await sendInvoiceEmail(customer_email, session, lineItems.data);
 
@@ -89,11 +87,20 @@ async function sendInvoiceEmail(customerEmail, session, lineItems) {
     return `<li>${item.quantity} x ${item.description} - ${formatCurrency(item.amount_total, session.currency)}</li>`;
   }).join('');
 
-  const mailOptions = {
-    from: {
-      email: process.env.SENDGRID_SENDER_EMAIL,
-      name: 'Community Impact Hub'
+  // Create a Nodemailer transporter
+  let transporter = nodemailer.createTransport({
+    host: 'smtp.communityimpacthub.ca',
+    port: 587,
+    secure: false,
+    auth: {
+      user: "info@communityimpacthub.ca",
+      pass: "l8ZkaqChQC_1"
     },
+	tls: {rejectUnauthorized: false}
+  });
+
+  const mailOptions = {
+    from: 'Community Impact Hub<info@communityimpacthub.ca>',
     to: customerEmail,
     subject: 'Invoice for Your Purchase',
     html: `
@@ -107,12 +114,16 @@ async function sendInvoiceEmail(customerEmail, session, lineItems) {
     `
   };
 
-  try {
-    await sgMail.send(mailOptions);
-    console.log('Invoice email sent successfully');
-  } catch (error) {
-    console.error('Error sending invoice email:', error.toString());
-  }
+  // Send the email
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('Error sending email:', error);
+      return res.status(500).send('Error sending email');
+    } else {
+      console.log('Email sent:', info.response);
+      return res.status(200).send('Email sent');
+    }
+  });
 }
 
 // Helper function to format currency
@@ -124,15 +135,74 @@ function formatCurrency(amount, currency) {
   }
 }
 
+app.post('/send-invoice', async (req, res) => {
+  const { email, grandTotal, items } = req.body;
+  const lineItemsHTML = items.map(item => {
+    return `<li>${item.quantity} x ${item.week} - ${grandTotal}</li>`;
+  }).join('');
+  // Validate input data
+  //if (!fullName || !email || !phoneNumber || !message) {
+  //  return res.status(400).send('All fields are required');
+  //}
+
+  // Create a Nodemailer transporter
+  let transporter = nodemailer.createTransport({
+    host: 'smtp.communityimpacthub.ca',
+    port: 587,
+    secure: false,
+    auth: {
+      user: "info@communityimpacthub.ca",
+      pass: "l8ZkaqChQC_1"
+    },
+	tls: {rejectUnauthorized: false}
+  });
+
+  const mailOptions = {
+    from: 'Community Impact Hub<info@communityimpacthub.ca>',
+    to: email,
+    subject: 'Invoice for Your Purchase',
+    html: `
+      <h1>Thank you for registering!</h1>
+      <p>Here is your invoice for the items:</p>
+      <ul>
+        ${lineItemsHTML}
+      </ul>
+      <p>Total: $${grandTotal} CAD</p>
+      <p>Payment Status: Send by e-transfer</p>
+      <h2>IMPORTANT MESSAGE:</h2>
+      <p>Contact the Office once registration is completed and you will be given the appropriate fees owed.</p>
+      <p>Payment can then be made by etransfer to <strong>payments@ottawalions.com</strong> (the etransfer message MUST include
+      name of child and the age group program registered in)</p>
+      
+      <p>Payment can also be paid by Cheque, or Cash which can be accepted by the registrat on the 1st day of practice</p>
+      
+      <p>FULL REFUNDS ARE GRANTED WITHIN 3 DAYS OF REGISTRATION. ALL REFUNDS BEYOND 3 DAYS WILL BE SUBJECT TO A $50 ADMIN FEE</p>
+      <p>If you have any questions please contact:</p>
+      <p>info@communityimpacthub.ca</p>
+      <p>613-406-2254</p>
+    `
+  };
+
+  // Send the email
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('Error sending email:', error);
+      return res.status(500).send('Error sending email');
+    } else {
+      console.log('Email sent:', info.response);
+      return res.status(200).send('Email sent');
+    }
+  });
+})
 app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
   let event;
   try {
     // Verify the webhook signature using your webhook signing secret
-    // const sig = req.headers['stripe-signature'];
-    // event = stripe.webhooks.constructEvent(req.body, sig, 'YOUR_WEBHOOK_SIGNING_SECRET');
+    const sig = req.headers['stripe-signature'];
+    event = stripe.webhooks.constructEvent(req.body, sig, process.env.WEBHOOK_SIGNING_SECRET);
 
     // For testing locally without webhook signature verification
-    event = req.body;
+    //event = req.body;
 
     if (event.type === 'checkout.session.completed') {
       const session = event.data.object;
@@ -142,7 +212,7 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
       const retrievedSession = await stripe.checkout.sessions.retrieve(session_id);
       
       // Get the line items
-      const lineItems = retrievedSession.display_items;
+      const lineItems = await stripe.checkout.sessions.listLineItems(session_id);
 
       // Get the customer email
       const customer_email = retrievedSession.customer_details.email;
@@ -170,10 +240,10 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
 
 // MySQL Connection
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'root1',
-  database: 'your_database_name',
+  host: '127.0.0.1',
+  user: 'cih',
+  password: 'OVenuraDB@@1',
+  database: 'child_registration',
 });
 
 // Connect to MySQL
@@ -228,51 +298,50 @@ app.post('/api/add-data', (req, res) => {
 
 
 
-const { body, validationResult } = require('express-validator');
-
-// Twilio SendGrid
-const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
 // POST endpoint to send email
-app.post('/api/send-email', [
-  body('fullName').notEmpty(),
-  body('email').isEmail(),
-  body('phoneNumber').notEmpty(),
-  body('message').notEmpty()
-], async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
+app.post('/api/send-email', (req, res) => {
   const { fullName, email, phoneNumber, message } = req.body;
 
-  const msg = {
-    to: process.env.SENDGRID_SENDER_EMAIL,
-    from: {
-      email: process.env.SENDGRID_SENDER_EMAIL,
-      name: 'CONTACT US FORM SUBMISSION',
+  // Validate input data
+  //if (!fullName || !email || !phoneNumber || !message) {
+  //  return res.status(400).send('All fields are required');
+  //}
+
+  // Create a Nodemailer transporter
+  let transporter = nodemailer.createTransport({
+    host: 'smtp.communityimpacthub.ca',
+    port: 587,
+    secure: false,
+    auth: {
+      user: "info@communityimpacthub.ca",
+      pass: "l8ZkaqChQC_1"
     },
+	tls: {rejectUnauthorized: false}
+  });
+
+  // Setup email data
+  let mailOptions = {
+    from: 'Community Impact Hub<info@communityimpacthub.ca>',
+    to: 'upandproudcommunity@gmail.com',
     subject: 'New Contact Form Submission',
     html: `
-      <h3>Contact Details:</h3>
-      <p><strong>Name:</strong> ${fullName}</p>
+      <p><strong>Full Name:</strong> ${fullName}</p>
       <p><strong>Email:</strong> ${email}</p>
       <p><strong>Phone Number:</strong> ${phoneNumber}</p>
-      <p><strong>Message:</strong></p>
-      <p>${message}</p>
-    `,
+      <p><strong>Message:</strong> ${message}</p>
+    `
   };
 
-  try {
-    await sgMail.send(msg);
-    console.log('Email sent successfully');
-    res.status(200).json({ message: 'Email sent successfully' });
-  } catch (error) {
-    console.error('Error sending email:', error.toString());
-    res.status(500).json({ error: 'Error sending email' });
-  }
+  // Send the email
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('Error sending email:', error);
+      return res.status(500).send('Error sending email');
+    } else {
+      console.log('Email sent:', info.response);
+      return res.status(200).send('Email sent');
+    }
+  });
 });
 
 const PORT = process.env.PORT || 5000;

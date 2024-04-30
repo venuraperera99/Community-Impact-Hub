@@ -7,6 +7,76 @@
   padding-bottom: 40px;
 }
 
+
+
+/* Style for the digital signature input */
+#digitalSignature {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #cccccc; /* Light border color */
+  box-sizing: border-box;
+  margin-bottom: 20px; /* Add some space below the input */
+}
+
+/* Error message style */
+.error-message {
+  color: red;
+  font-size: 14px;
+}
+
+.form-separator {
+  border-top: 1px solid #ccc;
+  margin: 20px 0;
+}
+
+
+/* Add styles for the info box */
+.info-box {
+  width: calc(100% - 20px); /* Adjust width to match form-group inputs */
+  max-width: 800px; /* Set maximum width */
+  background-color: #f2f2f2; /* Gray background color */
+  border: 1px solid #ccc; /* Border */
+  padding: 10px; /* Padding */
+  margin-bottom: 20px; /* Margin bottom to create space */
+}
+
+.info-box h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333333; /* Dark text color */
+}
+
+/* Style for the example text */
+.info-text {
+  font-size: 16px;
+  color: #333;
+}
+
+
+/* Add this CSS to make the gender section display in a row */
+.gender-section {
+  display: flex;
+  justify-content: center;
+}
+
+/* Adjust the styling for the male and female labels */
+.gender-label {
+  font-weight: bold;
+  color: #333333;
+  font-size: 16px;
+}
+
+/* Add margin to the male and female labels */
+.gender-label:first-child {
+  margin-right: 10px;
+}
+
+/* Add margin to the male and female checkboxes */
+.gender-checkbox {
+  margin-right: 10px;
+}
+
 .container {
   max-width: 800px;
   padding: 40px;
